@@ -4,15 +4,18 @@ import (
 	"ProyectoF1/estructuras"
 	"fmt"
 	"strconv"
+	"time"
 )
 
 // MAIN
 var cola_estudiante = &estructuras.Cola{}
 var listad_aceptados = &estructuras.ListaDoble{}
+var pila_admin = &estructuras.Pila{}
 
 func main() {
 	cola_estudiante = &estructuras.Cola{Primero: nil, Longitud: 0}
 	listad_aceptados = &estructuras.ListaDoble{Inicio: nil, Final: nil, Longitud: 0}
+	pila_admin = &estructuras.Pila{Primero: nil, Longitud: 0}
 	opcion := 0
 	salir := false
 
@@ -42,85 +45,122 @@ func iniciar_sesion() {
 	fmt.Scanln(&contra)
 
 	if usuario == "admin" && contra == "admin" {
+		t := time.Now()
+		t2 := t.Format("2006-01-02 15:04:05")
+		pila_admin.Push("- Inicio de sesion: " + t2)
 		opcion := 0
 		salir := false
+		fmt.Println(" SESION INICIADA DEL ADMIN")
 		for !salir {
-			fmt.Println("--------------ADMIN GODRIVE------------")
+			fmt.Println("\n--------------ADMIN GODRIVE------------")
 			fmt.Println("-    1. Ver Estudiantes Pendientes    -")
 			fmt.Println("-    2. Ver Estudiantes del Sistema   -")
 			fmt.Println("-    3. Registrar Nuevo Estudiante    -")
-			fmt.Println("-    4. Carga Masiva de Estudiantes   -")
-			fmt.Println("-    5. Cerrar Sesion                 -")
+			fmt.Println("-    4. Ver bitacora admin            -")
+			fmt.Println("-    5. Carga Masiva de Estudiantes   -")
+			fmt.Println("-    6. Cerrar Sesion                 -")
 			fmt.Println("---------------------------------------")
 			fmt.Print("Elige una opcion:")
 			fmt.Scanln(&opcion)
 			switch opcion {
 			case 1:
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Ver estudiantes pendientes: " + t2)
 				pendientes()
 			case 2:
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Ver estudiantes del sistema: " + t2)
 				esistema()
 			case 3:
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Registrar nuevo estudiante: " + t2)
 				registrar()
 			case 4:
-				cargam()
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Ver bitacora admin: " + t2)
+				bitacora(pila_admin)
 			case 5:
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Carga masiva: " + t2)
+				cargam()
+			case 6:
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Cerrar sesion : " + t2)
 				salir = true
 			}
 		}
 	} else {
 		carne, err := strconv.Atoi(usuario)
 		if err != nil {
-			fmt.Println("Error during conversion")
+			fmt.Println("Carne no valido")
 			return
-		}
-		aux := listad_aceptados.Inicio
-		sesion := false
-		for aux != nil {
-			if carne == aux.Estudiante.Carne {
-				if contra == aux.Estudiante.Contra {
-					sesion = true
-					break
-				}
-			}
-		}
-		if sesion {
-			opcion := 0
-			salir := false
-			for !salir {
-				fmt.Println("--------------" + usuario + " GODRIVE------------")
-				fmt.Println("-    1. Ver Datos                     -")
-				fmt.Println("-    2. Bitacora                      -")
-				fmt.Println("-    3. Cerrar Sesion                 -")
-				fmt.Println("---------------------------------------")
-				fmt.Print("Elige una opcion:")
-				fmt.Scanln(&opcion)
-				switch opcion {
-				case 1:
-					data()
-				case 2:
-					bitacora()
-				case 3:
-					salir = true
-				}
-			}
 		} else {
-			fmt.Println("Datos incorrectos")
+			aux := listad_aceptados.Inicio
+			sesion := false
+			for aux != nil {
+				if carne == aux.Estudiante.Carne {
+					if contra == aux.Estudiante.Contra {
+						sesion = true
+						break
+					}
+				}
+				aux = aux.Siguiente
+			}
+			if sesion {
+				fmt.Println(" SESION INCIADA " + usuario)
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				aux.Estudiante.Pilae.Push("- Inicio de sesion: " + t2)
+				opcion := 0
+				salir := false
+				for !salir {
+					fmt.Println("\n-------" + usuario + " GODRIVE---------")
+					fmt.Println("-    1. Ver Datos                     -")
+					fmt.Println("-    2. Bitacora                      -")
+					fmt.Println("-    3. Cerrar Sesion                 -")
+					fmt.Println("---------------------------------------")
+					fmt.Print("Elige una opcion:")
+					fmt.Scanln(&opcion)
+					switch opcion {
+					case 1:
+						t := time.Now()
+						t2 := t.Format("2006-01-02 15:04:05")
+						aux.Estudiante.Pilae.Push("- Ver datos: " + t2)
+						fmt.Println("- Carne: " + usuario + "\n- Nombre: " + aux.Estudiante.Nombre + "\n-Apellido: " + aux.Estudiante.Apellido + "\n-Contraseña: " + aux.Estudiante.Contra)
+					case 2:
+						t := time.Now()
+						t2 := t.Format("2006-01-02 15:04:05")
+						aux.Estudiante.Pilae.Push("- Ver bitacora: " + t2)
+						bitacora(aux.Estudiante.Pilae)
+					case 3:
+						t := time.Now()
+						t2 := t.Format("2006-01-02 15:04:05")
+						aux.Estudiante.Pilae.Push("- Cerrar sesion: " + t2)
+						salir = true
+					}
+				}
+			} else {
+				fmt.Println("Datos incorrectos")
+			}
 		}
 	}
 
 }
-func data() {
-
-}
-func bitacora() {
-
+func bitacora(pila *estructuras.Pila) {
+	pila.Listar()
 }
 func pendientes() {
-	if cola_estudiante.Primero != nil {
+	if cola_estudiante.Longitud > 0 {
 		opcion := 0
 		salir := false
-		for !salir {
-			fmt.Println("--------------ADMIN GODRIVE------------")
+		for !salir && cola_estudiante.Longitud != 0 {
+			fmt.Println("\n--------------ADMIN GODRIVE------------")
 			fmt.Println("---------------Pendientes--------------")
 			cola_estudiante.MostrarPrimero()
 			fmt.Println("-    1. Aceptar al Estudiante         -")
@@ -133,19 +173,22 @@ func pendientes() {
 			case 1:
 				aceptar(cola_estudiante.Primero.Estudiante)
 				cola_estudiante.Descolar()
+
 			case 2:
+				fmt.Println("\nSe rechazo " + cola_estudiante.Primero.Estudiante.Nombre + " " + cola_estudiante.Primero.Estudiante.Apellido + " del sistema.\n")
 				cola_estudiante.Descolar()
+
 			case 3:
 				salir = true
 			}
 		}
 	} else {
-		fmt.Println("No hay estudiantes en la cola")
+		fmt.Println("\n No hay estudiantes pendientes")
 	}
 }
 func aceptar(nestudiante *estructuras.Estudiante) {
 	listad_aceptados.AgregarEstudiante(nestudiante)
-	fmt.Println("Se agrego " + nestudiante.Nombre + " " + nestudiante.Apellido + " al sistema")
+	fmt.Println("\nSe agrego " + nestudiante.Nombre + " " + nestudiante.Apellido + " al sistema")
 }
 func esistema() {
 	listad_aceptados.MostrarLista()
@@ -155,14 +198,14 @@ func registrar() {
 	apellido := ""
 	carne := 0
 	contra := ""
-	fmt.Println("--------------ADMIN GODRIVE------------")
+	fmt.Println("\n--------------ADMIN GODRIVE------------")
 	fmt.Println("----------------REGISTRO-----=---------")
 	fmt.Print("Ingresa tu nombre: ")
 	fmt.Scanln(&nombre)
 	fmt.Print("Ingresa tu apellido: ")
 	fmt.Scanln(&apellido)
 	fmt.Print("Ingresa tu carne: ")
-	fmt.Scanln("%d", &carne)
+	fmt.Scanln(&carne)
 	fmt.Print("Ingresa tu contraseña: ")
 	fmt.Scanln(&contra)
 

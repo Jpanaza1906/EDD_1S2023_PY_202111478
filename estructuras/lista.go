@@ -15,16 +15,16 @@ func (l *Lista) estaVacia() bool {
 
 func (l *Lista) Agregarpila(pila *Pila) {
 	if l.estaVacia() {
-		nuevoNodo := &Nodopilas{Npila: pila, siguiente: nil}
+		nuevoNodo := &Nodopilas{Npila: pila, Siguiente: nil}
 		l.Inicio = nuevoNodo
 		l.Longitud++
 	} else {
-		nuevoNodo := &Nodopilas{Npila: pila, siguiente: nil}
+		nuevoNodo := &Nodopilas{Npila: pila, Siguiente: nil}
 		aux := l.Inicio
-		for aux.siguiente != nil {
-			aux = aux.siguiente
+		for aux.Siguiente != nil {
+			aux = aux.Siguiente
 		}
-		aux.siguiente = nuevoNodo
+		aux.Siguiente = nuevoNodo
 		l.Longitud++
 	}
 }

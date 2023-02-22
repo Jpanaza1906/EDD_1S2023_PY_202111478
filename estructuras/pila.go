@@ -3,9 +3,8 @@ package estructuras
 import "fmt"
 
 type Pila struct {
-	Primero    *Nodob
-	Estudiante *Estudiante
-	Longitud   int
+	Primero  *Nodob
+	Longitud int
 }
 
 func (p *Pila) estaVacia() bool {
@@ -18,29 +17,30 @@ func (p *Pila) estaVacia() bool {
 
 func (p *Pila) Push(log string) {
 	if p.estaVacia() {
-		nuevoNodo := &Nodob{Log: log, siguiente: nil}
+		nuevoNodo := &Nodob{Log: log, Siguiente: nil}
 		p.Primero = nuevoNodo
 		p.Longitud++
 	} else {
-		nuevoNodo := &Nodob{Log: log, siguiente: p.Primero}
+		nuevoNodo := &Nodob{Log: log, Siguiente: p.Primero}
 		p.Primero = nuevoNodo
 		p.Longitud++
 	}
 }
 
-func (p *Pila) Pop() {
-	if p.estaVacia() {
-		fmt.Println("La pila no tiene elementos")
-	} else {
-		p.Primero = p.Primero.siguiente
-		p.Longitud--
-	}
-}
+//
+//func (p *Pila) Pop() {
+//	if p.estaVacia() {
+//		fmt.Println("La pila no tiene elementos")
+//	} else {
+//		p.Primero = p.Primero.Siguiente
+//		p.Longitud--
+//	}
+//}
 
-func (p *Pila) Peek() {
-	if p.estaVacia() {
-		fmt.Println("La pila no tiene elementos")
-	} else {
-		fmt.Println(p.Primero.Log)
+func (p *Pila) Listar() {
+	aux := p.Primero
+	for aux != nil {
+		fmt.Println(aux.Log)
+		aux = aux.Siguiente
 	}
 }

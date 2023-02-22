@@ -5,4 +5,5 @@ type Estudiante struct {
 	Nombre   string
 	Apellido string
 	Contra   string
+	Pilae    *Pila
 }

@@ -2,21 +2,22 @@ package estructuras
 
 type Nodo struct {
 	Estudiante *Estudiante
-	anterior   *Nodo
-	siguiente  *Nodo
+	Anterior   *Nodo
+	Siguiente  *Nodo
 }
 
 type Nodos struct {
 	Estudiante *Estudiante
-	siguiente  *Nodos
+	Siguiente  *Nodos
 }
 
 type Nodob struct {
 	Log       string
-	siguiente *Nodob
+	Siguiente *Nodob
 }
 
 type Nodopilas struct {
-	Npila     *Pila
-	siguiente *Nodopilas
+	Estudiante *Estudiante
+	Npila      *Pila
+	Siguiente  *Nodopilas
 }
