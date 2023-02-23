@@ -1,9 +1,9 @@
 package estructuras
 
 type Estudiante struct {
-	Carne    int
-	Nombre   string
+	Nombre   string `json:"nombre"`
+	Carne    int    `json:"carnet"`
 	Apellido string
-	Contra   string
-	Pilae    *Pila
+	Contra   string `json:"password"`
+	Pilae    *Pila  `json:"-"`
 }

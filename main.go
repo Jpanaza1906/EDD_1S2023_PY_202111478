@@ -2,9 +2,16 @@ package main
 
 import (
 	"ProyectoF1/estructuras"
+	"encoding/csv"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"strconv"
+	"strings"
 	"time"
+
+	"golang.org/x/text/encoding/charmap"
 )
 
 // MAIN
@@ -172,6 +179,7 @@ func pendientes() {
 			switch opcion {
 			case 1:
 				aceptar(cola_estudiante.Primero.Estudiante)
+				writejson()
 				cola_estudiante.Descolar()
 
 			case 2:
@@ -208,11 +216,51 @@ func registrar() {
 	fmt.Scanln(&carne)
 	fmt.Print("Ingresa tu contraseña: ")
 	fmt.Scanln(&contra)
-
-	nuevoE := &estructuras.Estudiante{Carne: carne, Nombre: nombre, Apellido: apellido, Contra: contra}
+	npila := &estructuras.Pila{Primero: nil, Longitud: 0}
+	nuevoE := &estructuras.Estudiante{Carne: carne, Nombre: nombre, Apellido: apellido, Contra: contra, Pilae: npila}
 
 	cola_estudiante.Encolar(nuevoE)
 }
 func cargam() {
+	file, err := os.Open("Estudiante.csv")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	reader := csv.NewReader(charmap.ISO8859_15.NewDecoder().Reader(file))
+	cont := 0
+	for {
+		record, e := reader.Read()
+		if e != nil {
+			break
+		}
+		if cont > 0 {
+			carne, err := strconv.Atoi(record[0])
+			if err != nil {
+				fmt.Println("Error con el numero de carné, se pasara al siguiente")
+			} else {
+				nombreyape := strings.SplitAfter(record[1], " ")
+				contra := record[2]
+				npila := &estructuras.Pila{Primero: nil, Longitud: 0}
+				newEstudiante := &estructuras.Estudiante{Carne: carne, Nombre: nombreyape[0], Apellido: nombreyape[1], Contra: contra, Pilae: npila}
+				cola_estudiante.Encolar(newEstudiante)
+			}
+		}
+		cont++
+	}
+}
 
+func writejson() {
+	arr := make([]estructuras.EstudianteJ, 0, listad_aceptados.Longitud)
+	aux := listad_aceptados.Inicio
+
+	for aux != nil {
+		nestudiantej := &estructuras.EstudianteJ{Nombre: aux.Estudiante.Nombre + " " + aux.Estudiante.Apellido, Carne: aux.Estudiante.Carne, Contra: aux.Estudiante.Contra, Raiz: "/"}
+		arr = append(arr, *nestudiantej)
+		aux = aux.Siguiente
+	}
+	arreglo := &estructuras.Alumnos{AlumnosAcep: arr}
+
+	file, _ := json.MarshalIndent(arreglo, "", " ")
+	_ = ioutil.WriteFile("test.json", file, 0644)
 }

@@ -27,20 +27,16 @@ func (p *Pila) Push(log string) {
 	}
 }
 
-//
-//func (p *Pila) Pop() {
-//	if p.estaVacia() {
-//		fmt.Println("La pila no tiene elementos")
-//	} else {
-//		p.Primero = p.Primero.Siguiente
-//		p.Longitud--
-//	}
-//}
-
 func (p *Pila) Listar() {
 	aux := p.Primero
 	for aux != nil {
 		fmt.Println(aux.Log)
 		aux = aux.Siguiente
 	}
+}
+
+func (p *Pila) Graficar(estudiante string) {
+	//nombre_archivo := "./pila" + estudiante + ".dot"
+	//nombre_imagen := "pila" + estudiante + ".dot"
+	//texto := "digraph pila "
 }
