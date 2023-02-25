@@ -1,6 +1,9 @@
 package estructuras
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type ListaDoble struct {
 	Inicio   *Nodo
@@ -73,4 +76,79 @@ func (l *ListaDoble) MostrarLista() {
 	} else {
 		fmt.Println("No hay estudiantes en el sistema")
 	}
+}
+
+func (l *ListaDoble) Graficar() {
+	nombre_archivo := "./listadoble.dot"
+	nombre_imagen := "listadoble.png"
+	texto := "digraph listadoble{\n"
+	texto += "rankdir=LR;\n"
+	texto += "node[shape = box];\n"
+	texto += "nodonull2[label=\"null\"];\n"
+	texto += "nodonull1[label=\"null\"];\n"
+	aux := l.Inicio
+	for aux != nil {
+		if aux == l.Inicio {
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "[dir=both label=\"Carne =" + strconv.Itoa(aux.Estudiante.Carne) + "\\nNombre = " + aux.Estudiante.Nombre + " " + aux.Estudiante.Apellido + "\"]"
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "-> x" + strconv.Itoa(aux.Siguiente.Estudiante.Carne) + "\n"
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "-> nodonull2" + "\n"
+		} else if aux == l.Final {
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "[dir=both label=\"Carne =" + strconv.Itoa(aux.Estudiante.Carne) + "\\nNombre = " + aux.Estudiante.Nombre + " " + aux.Estudiante.Apellido + "\"]"
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "-> nodonull1" + "\n"
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "-> x" + strconv.Itoa(aux.Anterior.Estudiante.Carne) + "\n"
+		} else {
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "[dir=both label=\"Carne =" + strconv.Itoa(aux.Estudiante.Carne) + "\\nNombre = " + aux.Estudiante.Nombre + " " + aux.Estudiante.Apellido + "\"]"
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "-> x" + strconv.Itoa(aux.Siguiente.Estudiante.Carne) + "\n"
+			texto += "x" + strconv.Itoa(aux.Estudiante.Carne) + "-> x" + strconv.Itoa(aux.Anterior.Estudiante.Carne) + "\n"
+		}
+		aux = aux.Siguiente
+	}
+	texto += "}"
+	crearArchivo(nombre_archivo)
+	escribirArchivoDot(texto, nombre_archivo)
+	ejecutar(nombre_imagen, nombre_archivo)
+}
+
+func (l *ListaDoble) GraficarF() {
+	nombre_archivo := "./listadoble.dot"
+	nombre_imagen := "listadoble.png"
+	texto := "digraph listadoble{\n"
+	texto += "node[shape = box fillcolor = \"white\" style = filled];\n"
+	texto += "subgraph cluster_l{ \n"
+	texto += "label = \"Lista de Estudiantes\" \n"
+	texto += "edge[dir = \"both\" minlen = 2] \n"
+	texto += "nodon1[width=1.2 label = \"null\" fillcolor=white] \n"
+	texto += "nodon2[width=1.2 label = \"null\" fillcolor=white] \n"
+	aux := l.Inicio
+	for i := 0; i < l.Longitud; i++ {
+		texto += "nodo" + strconv.Itoa(i) + "[width=1.2 label=\"" + strconv.Itoa(aux.Estudiante.Carne) + " " + aux.Estudiante.Nombre + " " + aux.Estudiante.Apellido + "\" fillcolor = \"white\" group = " + strconv.Itoa(i) + "]\n"
+		aux = aux.Siguiente
+	}
+	for i := 0; i < l.Longitud-1; i++ {
+		if i == 0 {
+			texto += "nodon1" + " -> nodo" + strconv.Itoa(i) + "\n"
+		}
+		texto += "nodo" + strconv.Itoa(i) + " -> nodo" + strconv.Itoa(i+1) + "\n"
+		if (i + 1) == l.Longitud-1 {
+			texto += "nodo" + strconv.Itoa(i+1) + " -> nodon2" + "\n"
+		}
+	}
+	texto += "{rank = same;nodon1;nodon2"
+	for i := 0; i < l.Longitud; i++ {
+		texto += ";nodo" + strconv.Itoa(i)
+	}
+	texto += "}\n"
+	aux = l.Inicio
+	for i := 0; i < l.Longitud; i++ {
+		if !aux.Estudiante.Pilae.estaVacia() {
+			texto += "pila" + strconv.Itoa(i) + aux.Estudiante.Pilae.Graficar()
+			texto += "nodo" + strconv.Itoa(i) + " -> " + "pila" + strconv.Itoa(i) + "\n"
+		}
+		aux = aux.Siguiente
+	}
+	texto += "}\n"
+	texto += "}"
+	crearArchivo(nombre_archivo)
+	escribirArchivoDot(texto, nombre_archivo)
+	ejecutar(nombre_imagen, nombre_archivo)
 }

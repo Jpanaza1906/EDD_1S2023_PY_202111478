@@ -35,8 +35,30 @@ func (p *Pila) Listar() {
 	}
 }
 
-func (p *Pila) Graficar(estudiante string) {
-	//nombre_archivo := "./pila" + estudiante + ".dot"
-	//nombre_imagen := "pila" + estudiante + ".dot"
-	//texto := "digraph pila "
+func (p *Pila) GraficarAdmin() {
+	nombre_archivo := "./pilaadmin.dot"
+	nombre_imagen := "pilaadmin.jpg"
+	texto := "digraph pila{\n"
+	texto += "rankdir=LR;\n"
+	texto += "node[shape = record]"
+	aux := p.Primero
+	texto += "nodo0 [label=\"PILA ADMIN"
+	for i := 0; i < p.Longitud; i++ {
+		texto = texto + "|(" + aux.Log + ")"
+		aux = aux.Siguiente
+	}
+	texto += "\"]; \n}"
+	crearArchivo(nombre_archivo)
+	escribirArchivoDot(texto, nombre_archivo)
+	ejecutar(nombre_imagen, nombre_archivo)
+}
+func (p *Pila) Graficar() string {
+	aux := p.Primero
+	texto := "[fontsize = 8 shape = record fillcolor=white label = \"{pila"
+	for i := 0; i < p.Longitud; i++ {
+		texto += "|(" + aux.Log + ")"
+		aux = aux.Siguiente
+	}
+	texto += "}\"]\n"
+	return texto
 }

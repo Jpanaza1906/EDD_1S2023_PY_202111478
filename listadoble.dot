@@ -1,0 +1,29 @@
+digraph listadoble{
+node[shape = box fillcolor = "white" style = filled];
+subgraph cluster_l{ 
+label = "Lista de Estudiantes" 
+edge[dir = "both" minlen = 2] 
+nodon1[width=1.2 label = "null" fillcolor=white] 
+nodon2[width=1.2 label = "null" fillcolor=white] 
+nodo0[width=1.2 label="201403877 Ebany  Larios" fillcolor = "white" group = 0]
+nodo1[width=1.2 label="201700918 Cristian  Suy" fillcolor = "white" group = 1]
+nodo2[width=1.2 label="201780044 Leonardo  Martinez" fillcolor = "white" group = 2]
+nodo3[width=1.2 label="201902259 Lourdes  Reyes" fillcolor = "white" group = 3]
+nodo4[width=1.2 label="201903549 Alejandro  Caballeros" fillcolor = "white" group = 4]
+nodo5[width=1.2 label="202105463 Karen Vela" fillcolor = "white" group = 5]
+nodo6[width=1.2 label="202111478 Jose Panaza" fillcolor = "white" group = 6]
+nodon1 -> nodo0
+nodo0 -> nodo1
+nodo1 -> nodo2
+nodo2 -> nodo3
+nodo3 -> nodo4
+nodo4 -> nodo5
+nodo5 -> nodo6
+nodo6 -> nodon2
+{rank = same;nodon1;nodon2;nodo0;nodo1;nodo2;nodo3;nodo4;nodo5;nodo6}
+pila5[fontsize = 8 shape = record fillcolor=white label = "{pila|(- Cerrar sesion: 2023-02-24 23:05:53)|(- Ver bitacora: 2023-02-24 23:05:51)|(- Ver datos: 2023-02-24 23:05:49)|(- Inicio de sesion: 2023-02-24 23:05:48)}"]
+nodo5 -> pila5
+pila6[fontsize = 8 shape = record fillcolor=white label = "{pila|(- Cerrar sesion: 2023-02-24 23:05:14)|(- Ver bitacora: 2023-02-24 23:05:14)|(- Inicio de sesion: 2023-02-24 23:05:13)}"]
+nodo6 -> pila6
+}
+}

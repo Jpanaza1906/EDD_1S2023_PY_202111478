@@ -74,31 +74,38 @@ func iniciar_sesion() {
 				t := time.Now()
 				t2 := t.Format("2006-01-02 15:04:05")
 				pila_admin.Push("- Ver estudiantes pendientes: " + t2)
+				pila_admin.GraficarAdmin()
 				pendientes()
 			case 2:
 				t := time.Now()
 				t2 := t.Format("2006-01-02 15:04:05")
 				pila_admin.Push("- Ver estudiantes del sistema: " + t2)
+				pila_admin.GraficarAdmin()
+				listad_aceptados.GraficarF()
 				esistema()
 			case 3:
 				t := time.Now()
 				t2 := t.Format("2006-01-02 15:04:05")
 				pila_admin.Push("- Registrar nuevo estudiante: " + t2)
+				pila_admin.GraficarAdmin()
 				registrar()
 			case 4:
 				t := time.Now()
 				t2 := t.Format("2006-01-02 15:04:05")
 				pila_admin.Push("- Ver bitacora admin: " + t2)
+				pila_admin.GraficarAdmin()
 				bitacora(pila_admin)
 			case 5:
 				t := time.Now()
 				t2 := t.Format("2006-01-02 15:04:05")
 				pila_admin.Push("- Carga masiva: " + t2)
+				pila_admin.GraficarAdmin()
 				cargam()
 			case 6:
 				t := time.Now()
 				t2 := t.Format("2006-01-02 15:04:05")
 				pila_admin.Push("- Cerrar sesion : " + t2)
+				pila_admin.GraficarAdmin()
 				salir = true
 			}
 		}
@@ -178,13 +185,22 @@ func pendientes() {
 			fmt.Scanln(&opcion)
 			switch opcion {
 			case 1:
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Se acepto al estudiante " + cola_estudiante.Primero.Estudiante.Nombre + " " + cola_estudiante.Primero.Estudiante.Apellido + " a las: " + t2)
+				pila_admin.GraficarAdmin()
 				aceptar(cola_estudiante.Primero.Estudiante)
 				writejson()
 				cola_estudiante.Descolar()
-
+				cola_estudiante.Graficar()
 			case 2:
+				t := time.Now()
+				t2 := t.Format("2006-01-02 15:04:05")
+				pila_admin.Push("- Se rechazo al estudiante " + cola_estudiante.Primero.Estudiante.Nombre + " " + cola_estudiante.Primero.Estudiante.Apellido + " a las: " + t2)
+				pila_admin.GraficarAdmin()
 				fmt.Println("\nSe rechazo " + cola_estudiante.Primero.Estudiante.Nombre + " " + cola_estudiante.Primero.Estudiante.Apellido + " del sistema.\n")
 				cola_estudiante.Descolar()
+				cola_estudiante.Graficar()
 
 			case 3:
 				salir = true
@@ -220,6 +236,7 @@ func registrar() {
 	nuevoE := &estructuras.Estudiante{Carne: carne, Nombre: nombre, Apellido: apellido, Contra: contra, Pilae: npila}
 
 	cola_estudiante.Encolar(nuevoE)
+	cola_estudiante.Graficar()
 }
 func cargam() {
 	file, err := os.Open("Estudiante.csv")

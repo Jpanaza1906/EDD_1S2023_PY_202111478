@@ -8,6 +8,7 @@ import (
 )
 
 func crearArchivo(nombre_archivo string) {
+
 	//Verifica que el archivo existe
 	var _, err = os.Stat(nombre_archivo)
 	//Crea el archivo si no existe
@@ -42,7 +43,7 @@ func escribirArchivoDot(contenido string, nombre_archivo string) {
 
 func ejecutar(nombre_imagen string, archivo_dot string) {
 	path, _ := exec.LookPath("dot")
-	cmd, _ := exec.Command(path, "-Tjpg", archivo_dot).Output()
+	cmd, _ := exec.Command(path, "-Tpng", archivo_dot).Output()
 	mode := 0777
 	_ = ioutil.WriteFile(nombre_imagen, cmd, os.FileMode(mode))
 }
