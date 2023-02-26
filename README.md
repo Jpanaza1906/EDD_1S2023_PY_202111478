@@ -19,97 +19,52 @@
 <p class="has-line-data" data-line-start="27" data-line-end="28">Main</p>
 <ul>
 <li class="has-line-data" data-line-start="28" data-line-end="30">Iniciar_Sesion:<br>
-<img src="listadoble.png" width="300px">
+1 - Ver Estudiantes Pendientes: pendientes()</li>
 <li class="has-line-data" data-line-start="30" data-line-end="32">Bitacora:<br>
-1 - pila.Listar()</li>
-<li class="has-line-data" data-line-start="32" data-line-end="33">Pendientes</li>
-<li class="has-line-data" data-line-start="33" data-line-end="34">Aceptar</li>
-<li class="has-line-data" data-line-start="34" data-line-end="35">Estudiantes del sistema</li>
-<li class="has-line-data" data-line-start="35" data-line-end="36">Registrar</li>
-<li class="has-line-data" data-line-start="36" data-line-end="37">Carga masiva</li>
-<li class="has-line-data" data-line-start="37" data-line-end="39">Escribir Json</li>
+1 - pila.Listar(): Se lista la pila con su método</li>
+<li class="has-line-data" data-line-start="32" data-line-end="33">Pendientes: Aqui se muestra el estudiante de la Cola que le toca y se acepta o rechaza según el administrador. Cuando se acepta, se agrega a la Lista Doble y descolar de la cola de estudiantes pendientes. Cuando se rechaza solo se descola.</li>
+<li class="has-line-data" data-line-start="33" data-line-end="34">Aceptar: Se agrega el estudiante a la lista doble</li>
+<li class="has-line-data" data-line-start="34" data-line-end="35">Estudiantes del sistema: Se recorre la lista doble y se imprime cada estudiante.</li>
+<li class="has-line-data" data-line-start="35" data-line-end="36">Registrar: Se preguntan los datos, se crea el objeto estudiante y se encola a la cola de estudiantes pendientes.</li>
+<li class="has-line-data" data-line-start="36" data-line-end="37">Carga masiva: Se lee el archivo CSV, se obtienen los datos y se van creando los estudiantes y agregandolos a la lista de pendientes hasta que termine la lectura del archivo.</li>
+<li class="has-line-data" data-line-start="37" data-line-end="39">Escribir Json: Se crea un archivo json donde se guarda la información de cada estudiante en el sistema de la lista doble.</li>
 </ul>
-<h2 class="code-line" data-line-start=39 data-line-end=40 ><a id="Plugins_39"></a>Plugins</h2>
-<p class="has-line-data" data-line-start="41" data-line-end="43">Dillinger is currently extended with the following plugins.<br>
-Instructions on how to use them in your own application are linked below.</p>
+<h2 class="code-line" data-line-start=39 data-line-end=40 ><a id="Interfaces_39"></a>Interfaces</h2>
+<ul>
+<li class="has-line-data" data-line-start="40" data-line-end="41">Menú de Inicio de Sesión</li>
+<li class="has-line-data" data-line-start="41" data-line-end="48">Menu del administrador<br>
+1- Ver estudiantes pendientes<br>
+2- Ver estudiantes del sistema<br>
+3- Registrar nuevo estudiante<br>
+4- Ver bitacora admin<br>
+5-Carga Masiva de Estudiantes<br>
+6- Cerrar Sesion</li>
+<li class="has-line-data" data-line-start="48" data-line-end="52">Menu de usuario<br>
+1-Ver datos<br>
+2-Bitacora<br>
+3-Cerrar sesion</li>
+<li class="has-line-data" data-line-start="52" data-line-end="56">Menu ADMIN estudiantes pendientes<br>
+1-Aceptar al Estudiante<br>
+2-Rechazar al Estudiante<br>
+3- Volver al menu</li>
+<li class="has-line-data" data-line-start="56" data-line-end="57">Registro estudiantes ADMIN</li>
+</ul>
+<h2 class="code-line" data-line-start=59 data-line-end=60 ><a id="Planificacion_59"></a>Planificacion</h2>
 <table class="table table-striped table-bordered">
 <thead>
 <tr>
-<th>Plugin</th>
-<th>README</th>
+<th>Actividad</th>
+<th>Tiempo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Dropbox</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md">plugins/dropbox/README.md</a></td>
+<td>Hacer estructuras</td>
+<td>6 horas</td>
 </tr>
 <tr>
-<td>GitHub</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md">plugins/github/README.md</a></td>
-</tr>
-<tr>
-<td>Google Drive</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md">plugins/googledrive/README.md</a></td>
-</tr>
-<tr>
-<td>OneDrive</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md">plugins/onedrive/README.md</a></td>
-</tr>
-<tr>
-<td>Medium</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md">plugins/medium/README.md</a></td>
-</tr>
-<tr>
-<td>Google Analytics</td>
-<td><a href="https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md">plugins/googleanalytics/README.md</a></td>
+<td>Main</td>
+<td>2 dias</td>
 </tr>
 </tbody>
 </table>
-<h2 class="code-line" data-line-start=53 data-line-end=54 ><a id="Development_53"></a>Development</h2>
-<p class="has-line-data" data-line-start="55" data-line-end="56">Want to contribute? Great!</p>
-<p class="has-line-data" data-line-start="57" data-line-end="59">Dillinger uses Gulp + Webpack for fast developing.<br>
-Make a change in your file and instantaneously see your updates!</p>
-<p class="has-line-data" data-line-start="60" data-line-end="61">Open your favorite Terminal and run these commands.</p>
-<p class="has-line-data" data-line-start="62" data-line-end="63">First Tab:</p>
-<pre><code class="has-line-data" data-line-start="65" data-line-end="67" class="language-sh">node app
-</code></pre>
-<p class="has-line-data" data-line-start="68" data-line-end="69">Second Tab:</p>
-<pre><code class="has-line-data" data-line-start="71" data-line-end="73" class="language-sh">gulp watch
-</code></pre>
-<p class="has-line-data" data-line-start="74" data-line-end="75">(optional) Third:</p>
-<pre><code class="has-line-data" data-line-start="77" data-line-end="79" class="language-sh">karma <span class="hljs-built_in">test</span>
-</code></pre>
-<h4 class="code-line" data-line-start=80 data-line-end=81 ><a id="Building_for_source_80"></a>Building for source</h4>
-<p class="has-line-data" data-line-start="82" data-line-end="83">For production release:</p>
-<pre><code class="has-line-data" data-line-start="85" data-line-end="87" class="language-sh">gulp build --prod
-</code></pre>
-<p class="has-line-data" data-line-start="88" data-line-end="89">Generating pre-built zip archives for distribution:</p>
-<pre><code class="has-line-data" data-line-start="91" data-line-end="93" class="language-sh">gulp build dist --prod
-</code></pre>
-<h2 class="code-line" data-line-start=94 data-line-end=95 ><a id="Docker_94"></a>Docker</h2>
-<p class="has-line-data" data-line-start="96" data-line-end="97">Dillinger is very easy to install and deploy in a Docker container.</p>
-<p class="has-line-data" data-line-start="98" data-line-end="101">By default, the Docker will expose port 8080, so change this within the<br>
-Dockerfile if necessary. When ready, simply use the Dockerfile to<br>
-build the image.</p>
-<pre><code class="has-line-data" data-line-start="103" data-line-end="106" class="language-sh"><span class="hljs-built_in">cd</span> dillinger
-docker build -t &lt;youruser&gt;/dillinger:<span class="hljs-variable">${package.json.version}</span> .
-</code></pre>
-<p class="has-line-data" data-line-start="107" data-line-end="110">This will create the dillinger image and pull in the necessary dependencies.<br>
-Be sure to swap out <code>${package.json.version}</code> with the actual<br>
-version of Dillinger.</p>
-<p class="has-line-data" data-line-start="111" data-line-end="114">Once done, run the Docker image and map the port to whatever you wish on<br>
-your host. In this example, we simply map port 8000 of the host to<br>
-port 8080 of the Docker (or whatever port was exposed in the Dockerfile):</p>
-<pre><code class="has-line-data" data-line-start="116" data-line-end="118" class="language-sh">docker run <span class="hljs-operator">-d</span> -p <span class="hljs-number">8000</span>:<span class="hljs-number">8080</span> --restart=always --cap-add=SYS_ADMIN --name=dillinger &lt;youruser&gt;/dillinger:<span class="hljs-variable">${package.json.version}</span>
-</code></pre>
-<blockquote>
-<p class="has-line-data" data-line-start="119" data-line-end="120">Note: <code>--capt-add=SYS-ADMIN</code> is required for PDF rendering.</p>
-</blockquote>
-<p class="has-line-data" data-line-start="121" data-line-end="123">Verify the deployment by navigating to your server address in<br>
-your preferred browser.</p>
-<pre><code class="has-line-data" data-line-start="125" data-line-end="127" class="language-sh"><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">8000</span>
-</code></pre>
-<h2 class="code-line" data-line-start=128 data-line-end=129 ><a id="License_128"></a>License</h2>
-<p class="has-line-data" data-line-start="130" data-line-end="131">MIT</p>
-<p class="has-line-data" data-line-start="132" data-line-end="133"><strong>Free Software, Hell Yeah!</strong></p>
