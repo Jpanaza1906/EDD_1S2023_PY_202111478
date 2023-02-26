@@ -19,7 +19,7 @@
 <p class="has-line-data" data-line-start="27" data-line-end="28">Main</p>
 <ul>
 <li class="has-line-data" data-line-start="28" data-line-end="30">Iniciar_Sesion:<br>
-<img src="https://pbs.twimg.com/media/EiAuAS8VoAA1-4T?format=jpg&name=large" alt="JuveR" width="300px">
+<img src="listadoble.png" width="300px">
 <li class="has-line-data" data-line-start="30" data-line-end="32">Bitacora:<br>
 1 - pila.Listar()</li>
 <li class="has-line-data" data-line-start="32" data-line-end="33">Pendientes</li>
