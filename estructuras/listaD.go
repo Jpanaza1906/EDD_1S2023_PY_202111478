@@ -29,8 +29,8 @@ func (l *ListaDoble) AgregarEstudiante(nestudiante *Estudiante) {
 		nuevoNodo := &Nodo{Estudiante: nestudiante, Siguiente: nil, Anterior: nil}
 		aux := l.Inicio
 		repe := false
-		for aux != nil {
-			if aux.Estudiante.Carne > nestudiante.Carne {
+		for aux != nil { //2022
+			if aux.Estudiante.Carne > nestudiante.Carne { //2019(0) - 2020(1) - 2021(2) - 2022
 				break
 			} else {
 				if aux.Estudiante.Carne == nestudiante.Carne {
