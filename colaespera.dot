@@ -2,9 +2,13 @@ digraph cola{
 rankdir=LR;
 node[shape = record];
 nodonull2[label="null"];
-nodo0[label="{201900570\nJonatan  Gonzalez|}"];
-nodo1[label="{201700653\nKevyn  Girón|}"];
-nodo2[label="{202004703\nEduardo  Cuevas|}"];
+nodo0->nodonull2;
+}0206\nJulio Zalda|}"];
+nodo0->nodonull2;
+}5463\nKaren Vela|}"];
+nodo0->nodo1;
+nodo1->nodonull2;
+}nEduardo  Cuevas|}"];
 nodo3[label="{202000544\nRoberto  Gómez|}"];
 nodo4[label="{202002940\nSebastián  Godoy|}"];
 nodo5[label="{201801683\nJuan  Augusto|}"];

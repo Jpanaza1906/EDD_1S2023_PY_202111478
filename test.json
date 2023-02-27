@@ -1,45 +1,21 @@
 {
  "alumnos": [
   {
-   "nombre": "Ebany  Larios",
-   "carnet": 201403877,
-   "password": "qwerty12",
-   "Carpeta_raiz": "/"
-  },
-  {
-   "nombre": "Cristian  Suy",
-   "carnet": 201700918,
-   "password": "Cris123",
-   "Carpeta_raiz": "/"
-  },
-  {
-   "nombre": "Leonardo  Martinez",
-   "carnet": 201780044,
-   "password": "leo123",
-   "Carpeta_raiz": "/"
-  },
-  {
-   "nombre": "Lourdes  Reyes",
-   "carnet": 201902259,
-   "password": "Lourdes123",
-   "Carpeta_raiz": "/"
-  },
-  {
-   "nombre": "Alejandro  Caballeros",
-   "carnet": 201903549,
-   "password": "Alejandro124",
-   "Carpeta_raiz": "/"
-  },
-  {
    "nombre": "Karen Vela",
    "carnet": 202105463,
-   "password": "12",
+   "password": "kj",
+   "Carpeta_raiz": "/"
+  },
+  {
+   "nombre": "Julio Zalda",
+   "carnet": 202110206,
+   "password": "julio",
    "Carpeta_raiz": "/"
   },
   {
    "nombre": "Jose Panaza",
    "carnet": 202111478,
-   "password": "12",
+   "password": "jk",
    "Carpeta_raiz": "/"
   }
  ]
