@@ -1,0 +1,22 @@
+{
+ "alumnos": [
+  {
+   "nombre": "Ebany  Larios",
+   "carnet": 201403877,
+   "password": "qwerty12",
+   "Carpeta_raiz": "/"
+  },
+  {
+   "nombre": "Cristian  Suy",
+   "carnet": 201700918,
+   "password": "Cris123",
+   "Carpeta_raiz": "/"
+  },
+  {
+   "nombre": "Julio Zaldana",
+   "carnet": 202110206,
+   "password": "2",
+   "Carpeta_raiz": "/"
+  }
+ ]
+}
