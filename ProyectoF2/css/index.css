@@ -13,7 +13,7 @@ body{
     background-size: cover;
     background-position: center;
 }
-form {
+.container{
     margin: auto;
     width: 50%;
     max-width: 500px;
