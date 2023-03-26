@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Index</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='ProyectoF2/css/index.css'>
+    <script>
+        var input = getElementById("myinput");
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("mybtn").click();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="ProyectoF2/img/logo.png">
+        <input type="text" placeholder="Usuario" name="user" id="myinput" autofocus>
+        <input type="password" placeholder="Constraseña" name="password" id="myinput2">
+        <input type="submit" value="Iniciar Sesión" name="btn" id="mybtn">
+    </div>
+</body>
+</html>
