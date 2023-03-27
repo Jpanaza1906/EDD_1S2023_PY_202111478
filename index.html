@@ -5,23 +5,15 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Index</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='ProyectoF2/css/index.css'>
-    <script>
-        var input = getElementById("myinput");
-        input.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                document.getElementById("mybtn").click();
-            }
-        });
-    </script>
+    <link rel='stylesheet' type='text/css' media='screen' href='EDD_Proyecto1_Fase2/css/index.css'>
+    <script defer src="index.js"></script>
 </head>
 <body>
     <div class="container">
-        <img src="ProyectoF2/img/logo.png">
+        <img src="EDD_Proyecto1_Fase2/img/logo.png">
         <input type="text" placeholder="Usuario" name="user" id="myinput" autofocus>
         <input type="password" placeholder="Constraseña" name="password" id="myinput2">
-        <input type="submit" value="Iniciar Sesión" name="btn" id="mybtn">
+        <input type="submit" value="Iniciar Sesión" name="btn" id="mybtn" onclick="login()">
     </div>
 </body>
 </html>
