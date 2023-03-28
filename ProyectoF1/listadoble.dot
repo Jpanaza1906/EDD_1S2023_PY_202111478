@@ -6,21 +6,29 @@ edge[dir = "both" minlen = 2]
 nodon1[width=1.2 label = "null" fillcolor=white] 
 nodon2[width=1.2 label = "null" fillcolor=white] 
 nodo0[width=1.2 label="201403877 Ebany  Larios" fillcolor = "white" group = 0]
-nodo1[width=1.2 label="201700918 Cristian  Suy" fillcolor = "white" group = 1]
-nodo2[width=1.2 label="202110206 Julio Zaldana" fillcolor = "white" group = 2]
+nodo1[width=1.2 label="201700653 Kevyn  Giron" fillcolor = "white" group = 1]
+nodo2[width=1.2 label="201700918 Cristian  Suy" fillcolor = "white" group = 2]
+nodo3[width=1.2 label="201780044 Leonardo  Martinez" fillcolor = "white" group = 3]
+nodo4[width=1.2 label="201900570 Jonatan  Gonzalez" fillcolor = "white" group = 4]
+nodo5[width=1.2 label="201902259 Lourdes  Reyes" fillcolor = "white" group = 5]
+nodo6[width=1.2 label="201903549 Alejandro  Caballeros" fillcolor = "white" group = 6]
+nodo7[width=1.2 label="202000544 Roberto  Gomez" fillcolor = "white" group = 7]
+nodo8[width=1.2 label="202002940 Sebastian  Godoy" fillcolor = "white" group = 8]
+nodo9[width=1.2 label="202004703 Eduardo  Cuevas" fillcolor = "white" group = 9]
 nodon1 -> nodo0
 nodo0 -> nodo1
 nodo1 -> nodo2
-nodo2 -> nodon2
-{rank = same;nodon1;nodon2;nodo0;nodo1;nodo2}
-pila0[fontsize = 8 shape = record fillcolor=white label = "{pila|(- Cerrar sesion: 2023-03-02 18:08:37)|(- Ver bitacora: 2023-03-02 18:08:32)|(- Inicio de sesion: 2023-03-02 18:08:30)|(- Cerrar sesion: 2023-03-02 18:08:13)|(- Ver bitacora: 2023-03-02 18:08:04)|(- Ver datos: 2023-03-02 18:08:00)|(- Inicio de sesion: 2023-03-02 18:07:54)}"]
-nodo0 -> pila0
-pila2[fontsize = 8 shape = record fillcolor=white label = "{pila|(- Cerrar sesion: 2023-03-02 18:09:01)|(- Ver datos: 2023-03-02 18:08:55)|(- Inicio de sesion: 2023-03-02 18:08:51)}"]
-nodo2 -> pila2
+nodo2 -> nodo3
+nodo3 -> nodo4
+nodo4 -> nodo5
+nodo5 -> nodo6
+nodo6 -> nodo7
+nodo7 -> nodo8
+nodo8 -> nodo9
+nodo9 -> nodon2
+{rank = same;nodon1;nodon2;nodo0;nodo1;nodo2;nodo3;nodo4;nodo5;nodo6;nodo7;nodo8;nodo9}
 }
-}datos: 2023-02-24 23:05:49)|(- Inicio de sesion: 2023-02-24 23:05:48)}"]
-nodo5 -> pila5
-pila6[fontsize = 8 shape = record fillcolor=white label = "{pila|(- Cerrar sesion: 2023-02-24 23:05:14)|(- Ver bitacora: 2023-02-24 23:05:14)|(- Inicio de sesion: 2023-02-24 23:05:13)}"]
+}n: 2023-02-24 23:05:14)|(- Ver bitacora: 2023-02-24 23:05:14)|(- Inicio de sesion: 2023-02-24 23:05:13)}"]
 nodo6 -> pila6
 }
 }
