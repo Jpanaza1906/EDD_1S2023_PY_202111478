@@ -1,0 +1,505 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+*{
+    font-family: "Ubuntu", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #004266;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+}
+
+body{
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container{
+    position: relative;
+    width: 100%;
+}
+/*-----------------------NAVIGATION PANEL------------------------------*/
+.navigation{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: var(--blue);
+    border-left: 10px solid var(--blue);
+    transition: 0.5s;
+    overflow: hidden;
+}
+.navigation.active{
+    width: 80px;
+}
+.navigation ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.navigation ul li{
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+.navigation ul li:hover,
+.navigation ul li#active{
+    background-color: var(--white);
+}
+.navigation ul li:nth-child(1){
+    margin-bottom: 40px;
+    pointer-events: none;
+}
+.navigation ul li a{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+}
+.navigation ul li:hover a,
+.navigation ul li#active a{
+   color: var(--blue);
+}
+.navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 75px;
+    text-align: center;
+}
+.navigation ul li a .icon ion-icon{
+    font-size: 1.75rem;
+}
+.navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+/* Curva */
+.navigation ul li:hover a::before,
+.navigation ul li#active a::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--white);
+    pointer-events: none;
+}
+.navigation ul li:hover a::after,
+.navigation ul li#active a::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--white);
+    pointer-events: none;
+}
+
+/*----------------------MAIN---------------------------------*/
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: var(--white);
+    transform: 0.5s;
+}
+.main.active{
+    width: calc(100% - 80px);
+    left: 80px;
+}
+.topbar{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+.toggle{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+.user{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.user img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/*----------------------ALUMNOS----------------------------------------------*/
+.buttons{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px 300px;
+}
+.buttons input{
+    width: 120px;
+    height: 60px;
+    background: var(--blue);
+    border: 0;
+    color: rgb(255, 255, 255);
+    opacity: 0.8;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-bottom: 0;  
+    font-size: 0.9rem;  
+    font-weight: bolder;
+}
+.buttons input:hover{
+    background: var(--white);    
+    border: 1px solid var(--blue);
+    color: var(--blue);
+}
+.datos{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-gap: 30px;
+}
+.datos .tabla_alum{
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0,0, 0.08);
+    border-radius: 20px;
+}
+.datos table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.datos table thead td{
+    font-weight: 600;
+    text-align: center;
+}
+.datos .tabla_alum table tr{
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0,0, 0.1);
+}
+.datos .tabla_alum table tr:last-child{
+    border-bottom: none;
+}
+.datos .tabla_alum table tr:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+.datos .tabla_alum table tr td{
+    padding: 10px;
+    text-align: center;
+}
+.datos .tabla_alum img{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.datos .tabla_alum .drag-area{
+    border: 5px dashed var(--black2);
+    height: 500px;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.datos .tabla_alum .drag-area.active{
+    background-color: #b8d4fe;
+    color: var(--black1);
+    border: 2px dashed var(--blue);
+}
+.datos .tabla_alum .drag-area h2{
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--black1);
+}
+.datos .tabla_alum .drag-area span{
+    font-size: 25px;
+    color: var(--black1);
+}
+.datos .tabla_alum .drag-area button{
+    padding: 10px 25px;
+    font-size: 20px;
+    border: 0;
+    outline: none;
+    background: var(--blue);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px;
+}
+.datos .tabla_alum .drag-area button:hover{
+    padding: 10px 25px;
+    font-size: 20px;
+    border: 1px solid var(--blue);
+    outline: none;
+    background: var(--white);
+    color: var(--blue);
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px;
+}
+.file-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: solid 1px var(--white);
+}
+#preview{
+    margin-top: 10px;
+}
+.status-text{
+    padding: 0 10px;
+}
+.success{
+    color: green;
+}
+.failure{
+    color: red;
+}
+/*--------------------CARDS --------------------------------*/
+.cardBox{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+}
+.cardBox .card{
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0,0, 0.08);
+}
+
+.cardBox .card .numbers{
+    position: relative;
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: var(--blue);
+}
+.cardBox .card .cardname{
+    color: var(--black2);
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+.cardBox .card .iconBx{
+    font-size: 3.5rem;
+    color: var(--black2);
+
+}
+.cardBox .card:hover{
+    background: var(--blue);
+}
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardname,
+.cardBox .card:hover .iconBx{
+    color: var(--white);
+}
+
+/*-----------------------DETALLES DE OPERACIONES-----------------------------------*/
+.details{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 30px;
+}
+.details .recentOp{
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0,0, 0.08);
+    border-radius: 20px;
+}
+.details .cardHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.cardHeader h2{
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.details table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.details table thead td{
+    font-weight: 600;
+}
+.details .recentOp table tr{
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0,0, 0.1);
+}
+.details .recentOp table tr:last-child{
+    border-bottom: none;
+}
+.details .recentOp table tr:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+.details .recentOp table tr td{
+    padding: 10px;
+}
+.details .recentOp table tr td:last-child{
+    text-align: end;
+}
+.details .recentOp table tr td:nth-child(2){
+    text-align: end;
+}
+.details .recentOp table tr td:nth-child(3){
+    text-align: center;
+}
+
+/*------------------ALUMNOS RECIENTES----------------------------*/
+.recentAlumnos{
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    padding: 20px;
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0,0, 0.08);
+    border-radius: 20px;
+}
+.recentAlumnos .imgBx{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.recentAlumnos .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.recentAlumnos table tr td{
+    padding: 12px 10px;
+}
+.recentAlumnos table tr td h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2rem;
+}
+.recentAlumnos table tr:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+
+/* HACERLO RESPONSIVE*/
+@media (max-width: 991px){
+    .navigation{
+        left: -300px;
+    }
+    .navigation.active{
+        width: 300px;
+        left: 0;
+    }
+    .main{
+        width: 100%;
+        left: 0;
+    }
+    .main.active{
+        left: 300px;
+    }
+    .cardBox{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px){
+    .details{
+        grid-template-columns: 1fr;
+    }
+    .recentAlumnos{
+        overflow-x: auto;
+    }
+}
+@media (max-width: 480px){
+    .cardBox{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .cardHeader h2{
+        font-size: 20px;
+    }
+    .user{
+        min-width: 40px;
+    }
+    .navigation{
+        width: 100%;
+        left: -100%;
+        z-index: 1000;
+    }
+    .navigation.active{
+        width: 100%;
+        left: 0;
+    }
+    .toggle{
+        z-index: 10001;
+    }
+    .main.active.toggle{
+        color: #fff;
+        position: fixed;
+        right: 0;
+        left: initial;
+    }
+}

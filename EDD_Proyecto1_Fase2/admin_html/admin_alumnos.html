@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumnos</title>
+    <link rel="stylesheet" href="../css/main_menu.css">
+</head>
+<body>
+    <!------------------------ SIDE NAV ----------------------------------------->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="mainadmin.html">
+                        <span class="icon"><ion-icon name="laptop-outline"></ion-icon></span>
+                        <span class="title">EDD GO DRIVE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mainadmin.html">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li id="active">
+                    <a href="#">
+                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+                        <span class="title">Alumnos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_arboles.html">
+                        <span class="icon"><ion-icon name="nutrition-outline"></ion-icon></span>
+                        <span class="title">Árboles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_carga.html">
+                        <span class="icon"><ion-icon name="folder-outline"></ion-icon></span>
+                        <span class="title">Carga Masiva</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_reportes.html">
+                        <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
+                        <span class="title">Reportes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../index.html?l=1" id="logout">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!----------------------------------- MAIN----------------------------------------->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <div class="usuario">
+                    <label>
+                        <h2>ADMIN</h2>
+                    </label>
+                </div>
+                <div class="user">
+                    <img src="../img/admin.png" alt="">
+                </div>
+            </div>
+            <div class="buttons">
+                <input type="submit" value="PreOrder" onclick="preorder()">
+                <input type="submit" value="InOrder" onclick="inorder()">
+                <input type="submit" value="PosOrder" onclick="posorder()">
+            </div>
+            <div class="datos">
+                <div class="tabla_alum">                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="4"><div id="tipo"></div></td>
+                            </tr>
+                            <tr>
+                                <td>Nombre</td>
+                                <td>Carnet</td>
+                                <td>Contraseña</td>
+                                <td>Carpeta</td>
+                            </tr>
+                        </thead>
+                        <tbody id="estud">
+                        </tbody>
+                    </table>                
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPTS-->    
+    <script  src="alumnos.js"></script>
+    <!-- ICONS -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/main_menu.css">
+</head>
+<body>
+    <!------------------------ SIDE NAV ----------------------------------------->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="laptop-outline"></ion-icon></span>
+                        <span class="title">EDD GO DRIVE</span>
+                    </a>
+                </li>
+                <li id="active">
+                    <a href="#">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_alumnos.html" onclick="inorder();">
+                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+                        <span class="title">Alumnos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_arboles.html">
+                        <span class="icon"><ion-icon name="nutrition-outline"></ion-icon></span>
+                        <span class="title">Árboles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_carga.html">
+                        <span class="icon"><ion-icon name="folder-outline"></ion-icon></span>
+                        <span class="title">Carga Masiva</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_reportes.html">
+                        <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
+                        <span class="title">Reportes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../index.html?l=1" id="logout">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!----------------------------------- MAIN----------------------------------------->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <div class="usuario">
+                    <label>
+                        <h2>ADMIN</h2>
+                    </label>
+                </div>
+                <div class="user">
+                    <img src="../img/admin.png" alt="">
+                </div>
+            </div>
+            <!---------------------CARDS--------------------->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers" id="num_alum"></div>
+                        <div class="cardname">Alumnos</div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">20</div>
+                        <div class="cardname">Carpetas</div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="file-tray-full-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">33</div>
+                        <div class="cardname">Operaciones</div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="magnet-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">0</div>
+                        <div class="cardname">Reportes</div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="reader-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <!-----------------------OPERACIONES ALUMNOS------------------------------->
+            <div class="details">
+                <div class="recentOp">
+                    <div class="cardHeader">
+                        <h2>Operaciones Recientes</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Hora</td>
+                                <td>Carnet</td>
+                                <td>Nombre</td>
+                                <td>Accion</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11:33:00 03/28/2023</td>
+                                <td>202111478</td>
+                                <td>Jose Panaza</td>                                
+                                <td>Creacion carpeta</td>
+                            </tr>
+                            <tr>
+                                <td>11:33:00 03/28/2023</td>
+                                <td>202111478</td>
+                                <td>Jose Panaza</td>                                
+                                <td>Creacion carpeta</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-------------------------------ALUMNOS RECIENTES---------------------->
+                <div class="recentAlumnos">
+                    <div class="cardHeader">
+                        <h2>Alumnos Recientes</h2>
+                    </div>
+                    <table>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../img/user.png" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Jose Panaza</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../img/user.png" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Julio Zaldana</h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPTS-->    
+    <script src="main.js"></script>
+    <!-- ICONS -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

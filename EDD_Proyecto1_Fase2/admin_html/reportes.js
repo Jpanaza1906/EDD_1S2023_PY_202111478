@@ -113,41 +113,41 @@ class ArbolAVL {
         var numero = id + 1;
         if(!(raiz === null)){
             cadena += "\"";
-            cadena += raiz.estudiante.carnet;
+            cadena += raiz.estudiante.carnet + "\\n" + raiz.estudiante.nombre + "\\n Altura: " + raiz.altura;
             cadena += "\" ;";
             if(!(raiz.izquierdo === null) && !(raiz.derecho === null)){
                 cadena += " x" + numero + " [label=\"\",width=.1,style=invis];"
                 cadena += "\"";
-                cadena += raiz.estudiante.carnet;
+                cadena += raiz.estudiante.carnet + "\\n" + raiz.estudiante.nombre + "\\n Altura: " + raiz.altura;
                 cadena += "\" -> ";
                 cadena += this.retornarValoresArbol(raiz.izquierdo, numero)
                 cadena += "\"";
-                cadena += raiz.estudiante.carnet;
+                cadena += raiz.estudiante.carnet + "\\n" + raiz.estudiante.nombre + "\\n Altura: " + raiz.altura;
                 cadena += "\" -> ";
                 cadena += this.retornarValoresArbol(raiz.derecho, numero)
-                cadena += "{rank=same" + "\"" + raiz.izquierdo.estudiante.carnet + "\"" + " -> " + "\"" + raiz.derecho.estudiante.carnet + "\""  + " [style=invis]}; "
+                cadena += "{rank=same" + "\"" + raiz.izquierdo.estudiante.carnet + "\\n" + raiz.izquierdo.estudiante.nombre + "\\n Altura: " + raiz.izquierdo.altura + "\"" + " -> " + "\"" + raiz.derecho.estudiante.carnet + "\\n" + raiz.derecho.estudiante.nombre + "\\n Altura: " + raiz.derecho.altura + "\""  + " [style=invis]}; "
             }else if(!(raiz.izquierdo === null) && (raiz.derecho === null)){
                 cadena += " x" + numero + " [label=\"\",width=.1,style=invis];"
                 cadena += "\"";
-                cadena += raiz.estudiante.carnet;
+                cadena += raiz.estudiante.carnet + "\\n" + raiz.estudiante.nombre + "\\n Altura: " + raiz.altura;
                 cadena += "\" -> ";
                 cadena += this.retornarValoresArbol(raiz.izquierdo, numero)
                 cadena += "\"";
-                cadena += raiz.estudiante.carnet;
+                cadena += raiz.estudiante.carnet + "\\n" + raiz.estudiante.nombre + "\\n Altura: " + raiz.altura;
                 cadena += "\" -> ";
                 cadena += "x" + numero + "[style=invis]";
-                cadena += "{rank=same" + "\"" + raiz.izquierdo.estudiante.carnet + "\"" + " -> " + "x" + numero + " [style=invis]}; "
+                cadena += "{rank=same" + "\"" + raiz.izquierdo.estudiante.carnet + "\\n" + raiz.izquierdo.estudiante.nombre + "\\n Altura: " + raiz.izquierdo.altura + "\"" + " -> " + "x" + numero + " [style=invis]}; "
             }else if((raiz.izquierdo === null) && !(raiz.derecho === null)){
                 cadena += " x" + numero + " [label=\"\",width=.1,style=invis];"
                 cadena += "\"";
-                cadena += raiz.estudiante.carnet;
+                cadena += raiz.estudiante.carnet + "\\n" + raiz.estudiante.nombre + "\\n Altura: " + raiz.altura;
                 cadena += "\" -> ";
                 cadena += "x" + numero + "[style=invis]";
                 cadena += "; \"";
-                cadena += raiz.estudiante.carnet;
+                cadena += raiz.estudiante.carnet + "\\n" + raiz.estudiante.nombre + "\\n Altura: " + raiz.altura;
                 cadena += "\" -> ";
                 cadena += this.retornarValoresArbol(raiz.derecho, numero)
-                cadena += "{rank=same" + " x" + numero + " -> \"" + raiz.derecho.estudiante.carnet + "\"" +  " [style=invis]}; "
+                cadena += "{rank=same" + " x" + numero + " -> \"" + raiz.derecho.estudiante.carnet + "\\n" + raiz.derecho.estudiante.nombre + "\\n Altura: " + raiz.derecho.altura + "\"" +  " [style=invis]}; "
             }
         }
         return cadena;
@@ -159,65 +159,21 @@ class ArbolAVL {
 
 }
 
-var url_str = String(window.location.href);
-var url = new URL(url_str);
-var c = url.searchParams.get("l")
-if (c === null){
-    localStorage.clear()
+let toggle = document.querySelector(".toggle");
+let navigation = document.querySelector(".navigation");
+let main = document.querySelector(".main");
+toggle.onclick = function(){
+    navigation.classList.toggle("active");
+    main.classList.toggle("active");
 }
-const arbolBinarioAVL = new ArbolAVL();
-var numAlum = 0
-const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
-arbolBinarioAVL.raiz = arbolE.raiz
-//funcion para buscar si existe un nodo con el carne
-function buscar_carne(raiz, carnet){
-    if(raiz === null){
-        return false;
-    }
-    else if(raiz.estudiante.carnet > carnet){
-        return buscar_carne(raiz.izquierdo,carnet);
-    }
-    else if(raiz.estudiante.carnet < carnet){
-        return buscar_carne(raiz.derecho, carnet);
-    }
-    else if(raiz.estudiante.carnet === carnet){
-        return raiz.estudiante
-    }
-    else{
-        return false;
-    }
-}
-//Funcion para el login
-function login(){
-    localStorage.setItem("login",false);
-    localStorage.setItem("avl_estudiantes", JSON.stringify(arbolBinarioAVL));
-    var user = document.getElementById("myinput").value;
-    var password = document.getElementById("myinput2").value;
-    if(user === "admin" && password === "admin"){
-        localStorage.setItem("login", true); 
-        localStorage.setItem("user", "admin")       
-        window.location.replace("EDD_Proyecto1_Fase2/admin_html/mainadmin.html");
-    }
-    else if(user != "" && password != ""){
-        try{            
-            let student = buscar_carne(arbolBinarioAVL.raiz,parseInt(user));
-            if(student != false){
-                let contra = student.password;
-                if(password === contra){
-                    localStorage.setItem("user", JSON.stringify(student));
-                    localStorage.setItem("login", true);
-                    window.location.replace("EDD_Proyecto1_Fase2/user_html/main.html");
-                }
-                else{
-                    alert("Contraseña incorrecta del usuario: " + user);
-                }
-            }
-            else{
-                alert("Usuario " + user + " no encontrado.");
-            }
 
-        } catch (error) {
-            console.log(error)
-        }
-    }
+const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
+localStorage.setItem("avl_estudiantes", JSON.stringify(arbolE));
+var Narbol = new ArbolAVL();
+Narbol.raiz = arbolE.raiz;
+if(Narbol.raiz != null){
+    var graph = Narbol.grafica_arbol();
+    console.log(graph);
+    let url = 'https://quickchart.io/graphviz?graph=';
+    document.getElementById("image").setAttribute("src",url+graph);
 }

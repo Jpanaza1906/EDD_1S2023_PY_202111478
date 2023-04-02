@@ -1,5 +1,4 @@
-//Clases Creadas
-class Estudiante{
+export class Estudiante{
     constructor(nombre, carnet, password, carpeta){
         this.nombre = nombre;
         this.carnet = carnet;
@@ -7,7 +6,7 @@ class Estudiante{
         this.carpeta = carpeta;
     }
 }
-class nodoArbol {
+export class nodoArbol {
     constructor(estudiante){
         this.izquierdo = null;
         this.derecho = null;
@@ -16,8 +15,7 @@ class nodoArbol {
         this.factor_equilibrio = 0;
     }
 }
-
-class ArbolAVL {
+export class ArbolAVL {
     constructor(){
         this.raiz = null;
     }
@@ -157,67 +155,4 @@ class ArbolAVL {
         this.raiz = null;
     }
 
-}
-
-var url_str = String(window.location.href);
-var url = new URL(url_str);
-var c = url.searchParams.get("l")
-if (c === null){
-    localStorage.clear()
-}
-const arbolBinarioAVL = new ArbolAVL();
-var numAlum = 0
-const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
-arbolBinarioAVL.raiz = arbolE.raiz
-//funcion para buscar si existe un nodo con el carne
-function buscar_carne(raiz, carnet){
-    if(raiz === null){
-        return false;
-    }
-    else if(raiz.estudiante.carnet > carnet){
-        return buscar_carne(raiz.izquierdo,carnet);
-    }
-    else if(raiz.estudiante.carnet < carnet){
-        return buscar_carne(raiz.derecho, carnet);
-    }
-    else if(raiz.estudiante.carnet === carnet){
-        return raiz.estudiante
-    }
-    else{
-        return false;
-    }
-}
-//Funcion para el login
-function login(){
-    localStorage.setItem("login",false);
-    localStorage.setItem("avl_estudiantes", JSON.stringify(arbolBinarioAVL));
-    var user = document.getElementById("myinput").value;
-    var password = document.getElementById("myinput2").value;
-    if(user === "admin" && password === "admin"){
-        localStorage.setItem("login", true); 
-        localStorage.setItem("user", "admin")       
-        window.location.replace("EDD_Proyecto1_Fase2/admin_html/mainadmin.html");
-    }
-    else if(user != "" && password != ""){
-        try{            
-            let student = buscar_carne(arbolBinarioAVL.raiz,parseInt(user));
-            if(student != false){
-                let contra = student.password;
-                if(password === contra){
-                    localStorage.setItem("user", JSON.stringify(student));
-                    localStorage.setItem("login", true);
-                    window.location.replace("EDD_Proyecto1_Fase2/user_html/main.html");
-                }
-                else{
-                    alert("Contraseña incorrecta del usuario: " + user);
-                }
-            }
-            else{
-                alert("Usuario " + user + " no encontrado.");
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
 }

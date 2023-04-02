@@ -158,66 +158,89 @@ class ArbolAVL {
     }
 
 }
-
-var url_str = String(window.location.href);
-var url = new URL(url_str);
-var c = url.searchParams.get("l")
-if (c === null){
-    localStorage.clear()
+//side nav
+let toggle = document.querySelector(".toggle");
+let navigation = document.querySelector(".navigation");
+let main = document.querySelector(".main");
+toggle.onclick = function(){
+    navigation.classList.toggle("active");
+    main.classList.toggle("active");
 }
-const arbolBinarioAVL = new ArbolAVL();
-var numAlum = 0
+
 const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
-arbolBinarioAVL.raiz = arbolE.raiz
-//funcion para buscar si existe un nodo con el carne
-function buscar_carne(raiz, carnet){
-    if(raiz === null){
-        return false;
-    }
-    else if(raiz.estudiante.carnet > carnet){
-        return buscar_carne(raiz.izquierdo,carnet);
-    }
-    else if(raiz.estudiante.carnet < carnet){
-        return buscar_carne(raiz.derecho, carnet);
-    }
-    else if(raiz.estudiante.carnet === carnet){
-        return raiz.estudiante
-    }
-    else{
-        return false;
+var Narbol = new ArbolAVL();
+Narbol.raiz = arbolE.raiz;
+//localStorage.setItem("avl_estudiantes", JSON.stringify(arbolE));
+
+const dropArea = document.querySelector(".main").querySelector(".datos").querySelector(".tabla_alum").querySelector(".drag-area");
+const dragText = dropArea.querySelector("h2");
+const button = dropArea.querySelector("button");
+const input = dropArea.querySelector("#input-file");
+
+button.addEventListener('click', e =>{
+    input.click();
+});
+input.addEventListener("change", (e) => {
+    files = input.files;
+    dropArea.classList.add("active");
+    showFiles(files)
+    dropArea.classList.remove("active");
+});
+
+dropArea.addEventListener("dragover", (e) =>{
+    e.preventDefault();
+    dropArea.classList.add("active");
+    dragText.textContent = "Suelta para subir los archivos";
+});
+dropArea.addEventListener("dragleave", (e) =>{
+    e.preventDefault();
+    dropArea.classList.remove("active");
+    dragText.textContent = "Arrastra y suelta imagenes";
+    
+});
+dropArea.addEventListener("drop", (e) =>{
+    e.preventDefault();
+    files = e.dataTransfer.files;
+    showFiles(files)
+    dropArea.classList.remove("active");
+    dragText.textContent = "Arrastra y suelta imagenes";
+});
+
+function showFiles(files){
+    if(files.length === undefined){
+        processFile(files);
+    }else{
+        for(const file of files){
+            processFile(file);
+        }
     }
 }
-//Funcion para el login
-function login(){
-    localStorage.setItem("login",false);
-    localStorage.setItem("avl_estudiantes", JSON.stringify(arbolBinarioAVL));
-    var user = document.getElementById("myinput").value;
-    var password = document.getElementById("myinput2").value;
-    if(user === "admin" && password === "admin"){
-        localStorage.setItem("login", true); 
-        localStorage.setItem("user", "admin")       
-        window.location.replace("EDD_Proyecto1_Fase2/admin_html/mainadmin.html");
-    }
-    else if(user != "" && password != ""){
-        try{            
-            let student = buscar_carne(arbolBinarioAVL.raiz,parseInt(user));
-            if(student != false){
-                let contra = student.password;
-                if(password === contra){
-                    localStorage.setItem("user", JSON.stringify(student));
-                    localStorage.setItem("login", true);
-                    window.location.replace("EDD_Proyecto1_Fase2/user_html/main.html");
-                }
-                else{
-                    alert("Contraseña incorrecta del usuario: " + user);
-                }
-            }
-            else{
-                alert("Usuario " + user + " no encontrado.");
-            }
 
-        } catch (error) {
-            console.log(error)
-        }
+function processFile(file){
+    const docType = file.type;
+    const validExtensions = ['application/json'];
+    if(validExtensions.includes(docType)){
+        //archivo valido
+        const fileReader = new FileReader();
+        fileReader.addEventListener('load', e =>{
+            const fileUrl = fileReader.result;
+            fetch(fileUrl)
+                .then(response => response.json())
+                .then(data => {
+                    let alumno = data.alumnos;
+                    for (let i = 0; i < data.alumnos.length; i++){
+                        var student = new Estudiante(alumno[i].nombre,parseInt(alumno[i].carnet),alumno[i].password,alumno[i].Carpeta_raiz);
+                        Narbol.insertaEstudiante(student);
+                    }
+                    alert("Archivo subido Correctamente");
+                    localStorage.setItem("avl_estudiantes", JSON.stringify(Narbol)); 
+                    window.location.replace("admin_alumnos.html");
+                });
+                
+        });
+        fileReader.readAsDataURL(file);
+    }else{
+        //no es un archivo valido
+        alert("No es un archivo valido.");
     }
 }
