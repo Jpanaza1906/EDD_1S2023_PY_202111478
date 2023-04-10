@@ -2,12 +2,142 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="main.js"></script>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/main_menu.css">
 </head>
 <body>
-    <h1>USER PAGE</h1>
+    <!------------------------ SIDE NAV ----------------------------------------->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="laptop-outline"></ion-icon></span>
+                        <span class="title">EDD GO DRIVE</span>
+                    </a>
+                </li>
+                <li id="active">
+                    <a href="#">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="bitacora.html">
+                        <span class="icon"><ion-icon name="nutrition-outline"></ion-icon></span>
+                        <span class="title">Bitácora</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="reportes.html">
+                        <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
+                        <span class="title">Reportes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../index.html?l=1" id="logout">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Cerrar Sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!----------------------------------- MAIN----------------------------------------->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div> 
+                <div class="usuario">
+                    <label>
+                        <h2>ESTUDIANTE</h2>
+                    </label>
+                </div>               
+                <div class="user">
+                    <img src="../img/user.png" alt="">
+                </div>
+            </div>
+            <!---------------------CARDS--------------------->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="carnet" id="carne"></div>
+                        <div class="cardname" id="nombre"></div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers"><p id="carpetasn">0</p></div>
+                        <div class="cardname">Carpetas</div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="file-tray-full-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers"><p id="operacionesn">0</p></div>
+                        <div class="cardname">Operaciones</div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="magnet-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">0</div>
+                        <div class="cardname">Reportes</div>                        
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="reader-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <!-----------------------OPERACIONES ALUMNOS------------------------------->
+            <div class="details">
+                <div class="recentOp">
+                    <div class="cardHeader">
+                        <h2>Directorio Inicial: /</h2>
+                        <div class="search">
+                            <label>
+                                <input id="rutatx" type="text" placeholder="Buscar directorio">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </label>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="2">Nombre</td>
+                                <td>Tipo</td>
+                                <td>Opciones</td>
+                            </tr>
+                        </thead>
+                        <tbody id="archivo">
+                        </tbody>
+                    </table>
+                </div>
+                <!-------------------------------ALUMNOS RECIENTES---------------------->
+                <div class="recentAlumnos">
+                    <div class="drag-area">
+                        <h2>Arrastra y suelta el archivo</h2>
+                        <span>O</span>
+                        <button>Selecciona tus archivos</button>
+                        <input type="file" name="" id="input-file"  accept=".jpeg, .jpg, .png, .pdf, .gif, .txt" hidden multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPTS-->    
+    <script src="main.js"></script>
+    <!-- ICONS -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

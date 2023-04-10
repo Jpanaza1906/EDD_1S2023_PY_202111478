@@ -13,7 +13,10 @@ class nodoArbol {
         this.derecho = null;
         this.estudiante = estudiante;
         this.altura = 1;
-        this.factor_equilibrio = 0;
+        this.factor_equilibrio = 0;        
+        this.permisos = null;
+        this.archivos = null;
+        this.bitacora = null;
     }
 }
 

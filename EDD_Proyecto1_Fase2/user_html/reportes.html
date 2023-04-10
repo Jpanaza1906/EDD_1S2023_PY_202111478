@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carga</title>
+    <title>Reportes</title>
     <link rel="stylesheet" href="../css/main_menu.css">
 </head>
 <body>
@@ -13,37 +13,25 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="mainadmin.html">
+                    <a href="main.html">
                         <span class="icon"><ion-icon name="laptop-outline"></ion-icon></span>
                         <span class="title">EDD GO DRIVE</span>
                     </a>
                 </li>
                 <li>
-                    <a href="mainadmin.html">
+                    <a href="main.html">
                         <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="admin_alumnos.html">
-                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
-                        <span class="title">Alumnos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_arboles.html">
+                    <a href="bitacora.html">
                         <span class="icon"><ion-icon name="nutrition-outline"></ion-icon></span>
-                        <span class="title">Árboles</span>
+                        <span class="title">Bitácora</span>
                     </a>
                 </li>
                 <li id="active">
                     <a href="#">
-                        <span class="icon"><ion-icon name="folder-outline"></ion-icon></span>
-                        <span class="title">Carga Masiva</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_reportes.html">
                         <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
                         <span class="title">Reportes</span>
                     </a>
@@ -64,27 +52,26 @@
                 </div>
                 <div class="usuario">
                     <label>
-                        <h2>ADMIN</h2>
+                        <h2>ESTUDIANTE</h2>
                     </label>
                 </div>
                 <div class="user">
                     <img src="../img/admin.png" alt="">
                 </div>
             </div>
+            <div class="buttons">
+                <input type="submit" value="Biblioteca" onclick="biblioteca()">
+                <input type="submit" value="Permisos" onclick="permisos()">
+            </div>
             <div class="datos">
                 <div class="tabla_alum">
-                    <div class="drag-area">
-                        <h2>Arrastra y suelta el archivo</h2>
-                        <span>O</span>
-                        <button>Selecciona tus archivos</button>
-                        <input type="file" name="" id="input-file"  accept=".json" hidden multiple>
-                    </div>
+                    <img id="image" />           
                 </div>
             </div>
         </div>
     </div>
     <!-- SCRIPTS-->    
-    <script src="carga.js"></script>
+    <script src="reportes.js"></script>
     <!-- ICONS -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

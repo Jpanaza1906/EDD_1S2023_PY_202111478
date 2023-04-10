@@ -14,6 +14,9 @@ class nodoArbol {
         this.estudiante = estudiante;
         this.altura = 1;
         this.factor_equilibrio = 0;
+        this.permisos = null;
+        this.archivos = null;
+        this.bitacora = null;
     }
 }
 
@@ -162,13 +165,15 @@ class ArbolAVL {
 var url_str = String(window.location.href);
 var url = new URL(url_str);
 var c = url.searchParams.get("l")
+const arbolBinarioAVL = new ArbolAVL();
 if (c === null){
     localStorage.clear()
 }
-const arbolBinarioAVL = new ArbolAVL();
-var numAlum = 0
-const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
-arbolBinarioAVL.raiz = arbolE.raiz
+else{    
+    var numAlum = 0
+    const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
+    arbolBinarioAVL.raiz = arbolE.raiz
+}
 //funcion para buscar si existe un nodo con el carne
 function buscar_carne(raiz, carnet){
     if(raiz === null){
