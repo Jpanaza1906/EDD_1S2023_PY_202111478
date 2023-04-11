@@ -11,7 +11,7 @@
 <h2>Manuales:</h2>
 <h3>
 <ol>
-<li><a href="MANUALT.md">Manual Tecnico</a></li>
+<li><a href="MANUALTEC.md">Manual Tecnico</a></li>
 <li><a href="MANUALU.md">Manual de Usuario</a></li>
 </ol>
 </h3>
