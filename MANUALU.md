@@ -1,9 +1,5 @@
 <!--TITULO -->
-<style>
-p{
-    text-align: justify;
-}
-</style>
+
 <h1>MANUAL DE USUARIO FASE 2 PROYECTO</h1>
 
 <h2>Propósito</h2>
