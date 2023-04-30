@@ -1,4 +1,4 @@
-//Clases Creadas
+//Clases Creadas creadas
 class Estudiante{
     constructor(nombre, carnet, password, carpeta){
         this.nombre = nombre;
