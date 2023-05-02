@@ -16,7 +16,6 @@ class nodoArbol {
         this.estudiante = estudiante;
         this.altura = 1;
         this.factor_equilibrio = 0;
-        this.permisos = null;
         this.archivos = null;
         this.bitacora = null;
     }
@@ -169,6 +168,7 @@ class nodonArbol{
         this.valor = valor;
         this.primero = null;
         this.id = id;
+        this.matrizpermisos = null
     }
 }
 
@@ -532,8 +532,8 @@ class nodoMatriz{
 }
 
 class Matriz{
-    constructor(){
-        this.principal = new nodoMatriz(-1,-1,"Raiz")
+    constructor(title){
+        this.principal = new nodoMatriz(-1,-1,title)
         this.coordenadaY = 0;
         this.coordenadaX = 0;
     }
@@ -847,22 +847,36 @@ function permisos(id){
         try{
             var carnetV = buscar_carne(AvlArbol.raiz, parseInt(carnet));
             if(carnetV){
-                matriz_permisos.insertarArchivo(id)
-                matriz_permisos.colocarPermiso(id,carnet,tipo.toUpperCase())
+                //OBTENER NODO DEE CARPETA
+                var ruta = document.getElementById("rutatx").value;
+                let lista_carpeta = ruta.split('/')
+                let existe_carpeta = arbol_archivos.BuscarCarpetaV2(lista_carpeta)                
+                var matriz_permisos = new Matriz(existe_carpeta.valor);
+                if(existe_carpeta.matrizpermisos != null){
+                    matriz_permisos.principal = existe_carpeta.matrizpermisos.principal
+                    matriz_permisos.coordenadaX = existe_carpeta.matrizpermisos.coordenadaX
+                    matriz_permisos.coordenadaY = existe_carpeta.matrizpermisos.coordenadaY
+                    //-------
+                    matriz_permisos.insertarArchivo(id)
+                    matriz_permisos.colocarPermiso(id,carnet,tipo.toUpperCase())
+                    existe_carpeta.matrizpermisos = matriz_permisos
+                }else{
+                    matriz_permisos.insertarArchivo(id)
+                    matriz_permisos.colocarPermiso(id,carnet,tipo.toUpperCase())
+                    existe_carpeta.matrizpermisos = matriz_permisos
+                }
+                
                 var fecha = String(new Date().toLocaleString().replace(",","").replace(/:.. /," "))
                 var accion = "Se colocó permisos "+ tipo.toUpperCase() +" al archivo \'" + String(id) + "\' para el carnet: " + carnet + " el "+ fecha;
                 bitacora.agregar_inicio(accion);
                 alert(accion)
-                //let url = 'https://quickchart.io/graphviz?graph=';
-                //let body = matriz_permisos.reporte();
-                //alert(url + body)
                 let md = "{\"principal\":" + matriz_permisos.reporteJson(matriz_permisos.principal) + ","
                 md += "\"coordenadaY\":" + matriz_permisos.coordenadaY + ",";
                 md+= "\"coordenadaX\":"+ matriz_permisos.coordenadaX + "}" ;
                 let md2 = "{ \"primero\":" + bitacora.reporteJson(bitacora.primero) + ","
                 md2 += "\"ultimo\":" + bitacora.reporteJson(bitacora.ultimo) + "}";
                 nodoEstudiante.bitacora = JSON.parse(md2);
-                nodoEstudiante.permisos = JSON.parse(md);
+                existe_carpeta.matrizpermisos = JSON.parse(md);
                 nodoEstudiante.archivos = arbol_archivos;
                 localStorage.setItem("avl_estudiantes", JSON.stringify(AvlArbol));
             }
@@ -967,7 +981,7 @@ localStorage.setItem("user",user);
 //NODO ESTUDIANTE
 var nodoEstudiante = buscar_carne(AvlArbol.raiz, JSON.parse(user).carnet);
 var arbol_archivos = new ArbolNArio();
-var matriz_permisos = new Matriz();
+//igualar matriz inicial
 var bitacora = new ListaCircular();
 if(nodoEstudiante.archivos == null){
     nodoEstudiante.archivos = arbol_archivos;
@@ -977,14 +991,6 @@ else{
     arbol_archivos.nodo_creados = nodoEstudiante.archivos.nodo_creados;
 }
 
-if(nodoEstudiante.permisos == null){
-    nodoEstudiante.permisos = matriz_permisos;
-}
-else{
-    matriz_permisos.principal = nodoEstudiante.permisos.principal
-    matriz_permisos.coordenadaX = nodoEstudiante.permisos.coordenadaX
-    matriz_permisos.coordenadaY = nodoEstudiante.permisos.coordenadaY
-}
 
 if(nodoEstudiante.bitacora == null){
     nodoEstudiante.bitacora = bitacora;
@@ -1128,4 +1134,19 @@ function processFile(file){
         //no es un archivo valido
         alert("No es un archivo valido.");
     }
+}
+
+function permisosrep(){
+    var ruta = document.getElementById("rutatx").value;
+    let lista_carpeta = ruta.split('/')
+    let existe_carpeta = arbol_archivos.BuscarCarpetaV2(lista_carpeta)
+    var matriz_permisos = new Matriz(existe_carpeta.valor);
+    matriz_permisos.principal = existe_carpeta.matrizpermisos.principal
+    matriz_permisos.coordenadaX = existe_carpeta.matrizpermisos.coordenadaX
+    matriz_permisos.coordenadaY = existe_carpeta.matrizpermisos.coordenadaY
+
+    let url = 'https://quickchart.io/graphviz?graph=';
+    let body = matriz_permisos.reporte();
+    let loca = url + body
+    window.open(loca, '_blank');
 }
