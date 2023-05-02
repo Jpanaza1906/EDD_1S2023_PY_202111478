@@ -201,7 +201,7 @@ function login(){
     if(user === "admin" && password === "admin"){
         localStorage.setItem("login", true); 
         localStorage.setItem("user", "admin")       
-        window.location.replace("EDD_Proyecto1_Fase2/admin_html/mainadmin.html");
+        window.location.replace("EDD_Proyecto1_Fase3/admin_html/mainadmin.html");
     }
     else if(user != "" && password != ""){
         try{            
@@ -211,7 +211,7 @@ function login(){
                 if(password === contra){
                     localStorage.setItem("user", JSON.stringify(student));
                     localStorage.setItem("login", true);
-                    window.location.replace("EDD_Proyecto1_Fase2/user_html/main.html");
+                    window.location.replace("EDD_Proyecto1_Fase3/user_html/main.html");
                 }
                 else{
                     alert("Contraseña incorrecta del usuario: " + user);
