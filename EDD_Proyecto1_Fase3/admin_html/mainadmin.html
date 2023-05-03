@@ -111,60 +111,41 @@
                 </div>
             </div>
             <!-----------------------OPERACIONES ALUMNOS------------------------------->
-            <div class="details">
+            <div class="buttons">
+                <input type="submit" value="C-HASH" onclick="hash()">
+                <input type="submit" value="TABLA" onclick="tabla()">
+            </div>
+            <div class="detailshash">
                 <div class="recentOp">
                     <div class="cardHeader">
-                        <h2>Operaciones Recientes</h2>
+                        <h2>Alumnos T.Hash</h2>
+                    </div>
+                    <table id="tablahash">
+                    </table>
+                </div>                
+            </div>
+            <div class="detailshash">
+                <div class="recentOp">
+                    <div class="cardHeader">
+                        <h2>Permisos</h2>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <td>Hora</td>
-                                <td>Carnet</td>
-                                <td>Nombre</td>
-                                <td>Accion</td>
+                                <td colspan="4"><div id="tipo"></div></td>
+                            </tr>
+                            <tr>
+                                <td>Propietario</td>
+                                <td>Destino</td>
+                                <td>Ubicacion</td>
+                                <td>Archivo</td>
+                                <td>Permisos</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>11:33:00 03/28/2023</td>
-                                <td>202111478</td>
-                                <td>Jose Panaza</td>                                
-                                <td>Creacion carpeta</td>
-                            </tr>
-                            <tr>
-                                <td>11:33:00 03/28/2023</td>
-                                <td>202111478</td>
-                                <td>Jose Panaza</td>                                
-                                <td>Creacion carpeta</td>
-                            </tr>
+                        <tbody id="permisost">
                         </tbody>
-                    </table>
-                </div>
-                <!-------------------------------ALUMNOS RECIENTES---------------------->
-                <div class="recentAlumnos">
-                    <div class="cardHeader">
-                        <h2>Alumnos Recientes</h2>
-                    </div>
-                    <table>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="../img/user.png" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Jose Panaza</h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="../img/user.png" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Julio Zaldana</h4>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                    </table>  
+                </div>                
             </div>
         </div>
     </div>

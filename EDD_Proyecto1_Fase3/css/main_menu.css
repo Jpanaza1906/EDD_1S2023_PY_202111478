@@ -199,7 +199,7 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 70px 570px;
+    padding: 70px 350px;
 }
 .buttons input{
     width: 120px;
@@ -376,7 +376,7 @@ body{
     width: 100%;
     padding: 20px;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 30px;
 }
 .details .recentOp{
@@ -389,6 +389,28 @@ body{
     border-radius: 20px;
 }
 .details .cardHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.detailshash{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+}
+.detailshash .recentOp{
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0,0, 0.08);
+    border-radius: 20px;
+}
+.detailshash .cardHeader{
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -440,6 +462,33 @@ body{
     text-align: center;
 }
 .details .recentOp table tr td{
+    padding: 10px;
+    text-align: center;
+}
+.detailshash table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.detailshash table thead td{
+    font-weight: 600;
+}
+.detailshash .recentOp table tr{
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0,0, 0.1);
+}
+.detailshash .recentOp table tr:last-child{
+    border-bottom: none;
+}
+.detailshash .recentOp table tr:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+.detailshash .recentOp table tr td{
+    padding: 10px;
+    text-align: center;
+}
+.detailshash .recentOp table tr td{
     padding: 10px;
     text-align: center;
 }
