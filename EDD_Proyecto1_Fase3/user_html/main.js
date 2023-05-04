@@ -1005,6 +1005,9 @@ var carnet = ""
 if(user != "admin"){
     var estudiante = JSON.parse(user);
     nombre = estudiante.nombre;
+    if(nombre == undefined){
+        nombre = estudiante.usuario
+    }
     carnet = estudiante.carnet;    
 }
 logt();

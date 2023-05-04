@@ -450,6 +450,10 @@ async function encripContra(tabla, contra){
     let contraencrip = await encriptacion(contra)
     tabla.password = contraencrip
 }
+async function desencripcontra(tabla,contra){
+    let contrades = await desencriptacion(contra)
+    tabla.password = contrades
+}
       
 var Narbol = new ArbolAVL();
 Narbol.raiz = arbolE.raiz;
@@ -479,9 +483,23 @@ function hash(){
         alert("no tiene nada")
     }
 }
+function desencrip(){
+    if(tablaHash.utilizacion > 0){
+        for(var i = 0; i < tablaHash.capacidad; i++){
+            if(tablaHash.tabla[i] != null){
+                let contra = tablaHash.tabla[i].password
+                desencripcontra(tablaHash.tabla[i],contra)
+            }
+        }
+    }
+}
 function tabla(){
     localStorage.setItem("tabla_estudiantes", JSON.stringify(tablaHash));
     tablaHash.genera_tabla()
+    desencrip()
+}
+function local(){
+    localStorage.setItem("tabla_estudiantes", JSON.stringify(tablaHash));
 }
 function recorridoInorderPermisos(raiz){
     var cadena = "";
