@@ -162,11 +162,10 @@ class ArbolAVL {
 }
 
 class nodoHash{
-    constructor(carnet, usuario, password, grafo){
+    constructor(carnet, usuario, password){
         this.carnet = carnet
         this.usuario = usuario
         this.password = password
-        this.grafoarchivos = grafo
     }
 }
 
@@ -177,9 +176,9 @@ class TablaHash{
         this.utilizacion = 0
     }
 
-    insertar(carnet, usuario, password, grafo){
+    insertar(carnet, usuario, password){
         let indice = this.calculoIndice(carnet)
-        const nuevoNodo = new nodoHash(carnet, usuario, password, grafo)
+        const nuevoNodo = new nodoHash(carnet, usuario, password)
         if(indice < this.capacidad){
             try{
                 if(this.tabla[indice] == null){
@@ -226,7 +225,7 @@ class TablaHash{
     nueva_capacidad(){ //Sustituir por un algoritmo del siguiente numero primo
         let numero = this.capacidad + 1;
         while (!this.isPrime(numero)) {
-            numero++;
+          numero++;
         }
         return numero;
     }
@@ -235,7 +234,7 @@ class TablaHash{
         const auxiliar_tabla = this.tabla
         this.tabla = new Array(this.capacidad)
         auxiliar_tabla.forEach((alumno) => {
-            this.insertar(alumno.carnet, alumno.usuario, alumno.password, alumno.grafoarchivos)
+            this.insertar(alumno.carnet, alumno.usuario, alumno.password)
         })
     }
 
@@ -256,32 +255,24 @@ class TablaHash{
         return nueva_posicion
     }
 
-    busquedaUsuario(carnet, pass_en){
+    busquedaUsuario(carnet){
         let indice = this.calculoIndice(carnet)
         if(indice < this.capacidad){
             try{
                 if(this.tabla[indice] == null){
-                    alert("No se encontro el alumno")
+                    alert("Bienvenido " + this.tabla[indice].usuario)
                 }else if(this.tabla[indice] != null && this.tabla[indice].carnet == carnet){
-                    if(this.tabla[indice].password == pass_en){
-                        alert("Bienvenido " + this.tabla[indice].usuario)
-                    }else{
-                        alert("Contraseña incorrecta")
-                    }
+                    alert("Bienvenido " + this.tabla[indice].usuario)
                 }else{
                     let contador = 1
                     indice = this.RecalculoIndice(carnet,contador)
                     while(this.tabla[indice] != null){
-                        if(this.tabla[indice].carnet == carnet){
-                            if(this.tabla[indice].password == pass_en){
-                                alert("Bienvenido " + this.tabla[indice].usuario)
-                            }else{
-                                alert("Contraseña incorrecta")
-                            }
-                            return
-                        }
                         contador++
                         indice = this.RecalculoIndice(carnet, contador)
+                        if(this.tabla[indice].carnet == carnet){
+                            alert("Bienvenido " + this.tabla[indice].usuario)
+                            return
+                        }
                     }
                 }
             }catch(err){
@@ -338,6 +329,7 @@ class TablaHash{
             }
         }
 
+
         
         tabla.appendChild(tblBody);
         // appends <table> into <body>
@@ -349,121 +341,51 @@ class TablaHash{
         if (numero === 2) {return true}
         if (numero % 2 === 0) {return false}
         for (let i = 3; i <= Math.sqrt(numero); i += 2) {
-            if (numero % i === 0) {return false};
+          if (numero % i === 0) {return false};
         }
         return true;
     }
 
-    async sha256(mensaje){
-        let cadenaFinal
-        const enconder =  new TextEncoder();
-        const mensajeCodificado = enconder.encode(mensaje)
-        await crypto.subtle.digest("SHA-256", mensajeCodificado)
-        .then(result => { // 100 -> 6a 
-            const hashArray =  Array.from(new Uint8Array(result))
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-            cadenaFinal = hashHex
-        })
-        .catch(error => console.log(error))
-        return cadenaFinal
-    }
-
-}
-class nodoMatrizAdyacencia{
-    constructor(valor){
-        this.siguiente = null
-        this.abajo = null
-        this.valor = valor
-        this.matrizpermisos = null
-    }
 }
 
-class grafoDirigido{
-    constructor(){
-        this.principal = null
-    }
-
-    insertarF(texto){
-        const nuevoNodo = new nodoMatrizAdyacencia(texto)
-        if(this.principal === null){
-            this.principal = nuevoNodo
-        }else{
-            let aux = this.principal
-            while(aux.abajo){
-                if(aux.valor === nuevoNodo.valor){
-                    return
-                }
-                aux = aux.abajo
-            }
-            aux.abajo = nuevoNodo
-        }
-    }
-
-    insertarC(padre, hijo){
-        const nuevoNodo = new nodoMatrizAdyacencia(hijo)
-        if(this.principal !== null && this.principal.valor === padre){
-            let aux = this.principal
-            while(aux.siguiente){
-                aux = aux.siguiente
-            }
-            aux.siguiente = nuevoNodo
-        }else{
-            this.insertarF(padre)
-            let aux = this.principal
-            while(aux){
-                if(aux.valor === padre){
-                    break;
-                }
-                aux = aux.abajo
-            }
-            if(aux !== null){
-                while(aux.siguiente){
-                    aux = aux.siguiente
-                }
-                aux.siguiente = nuevoNodo
-            }
-        }
-    }
-
-    insertarValores(padre, hijos){
-        let cadena = hijos.split(',')
-        for(let i = 0; i < cadena.length; i++){
-            this.insertarC(padre,cadena[i])
-        }
-    }
-
-    //Reporte modificado para trabajar con carpetas
-    grafica(){
-        let cadena = "graph grafoDirigido{ rankdir=LR; node [shape=box]; \"/\"; node [shape = ellipse] ; layout=neato; "
-        let auxPadre = this.principal
-        let auxHijo = this.principal
-        let peso = 0
-        while(auxPadre){
-            auxHijo = auxPadre.siguiente
-            let profundidad = auxPadre.valor.split('/')
-            let padre = ""
-            if(profundidad.length == 2 && profundidad[1] == ""){ peso = 1}
-            else if(profundidad.length == 2 && profundidad[1] != ""){ peso = 2 }
-            else { peso = profundidad.length }
-            if(auxPadre.valor != "/"){ padre = profundidad[profundidad.length-1] }
-            else { padre = "/" }
-            while(auxHijo){
-                cadena += "\"" + padre + "\"" + " -- " + "\"" + auxHijo.valor + "\"" + " [label=\"" + peso + "\"] "
-                auxHijo = auxHijo.siguiente
-            }
-            auxPadre = auxPadre.abajo
-        }
-        cadena += "}"
-        return cadena
-    }
+const clave = 'clave-secreta'
+const buffer = new ArrayBuffer(16)
+const view = new Uint8Array(buffer)
+for(let i = 0; i < clave.length; i++){
+    view[i] = clave.charCodeAt(i)
 }
 
+const iv = crypto.getRandomValues(new Uint8Array(16))
+const algoritmo = {name: 'AES-GCM', iv: iv}
 
+async function encriptacion(mensaje){    
+    const enconder = new TextEncoder()
+    const data = enconder.encode(mensaje)
 
+    const claveCrypto = await crypto.subtle.importKey('raw', view, 'AES-GCM', true, ['encrypt'])
 
+    const mensajeCifrado = await crypto.subtle.encrypt(algoritmo, claveCrypto, data)
 
+    const cifradoBase64 = btoa(String.fromCharCode.apply(null, new Uint8Array(mensajeCifrado)))
+    
+    return cifradoBase64;
+}
+
+async function desencriptacion(mensaje){
+    const mensajeCifrado = new Uint8Array(atob(mensaje).split('').map(char => char.charCodeAt(0)))
+
+    const claveCrypto = await crypto.subtle.importKey('raw', view, 'AES-GCM', true, ['decrypt'])
+
+    const mensajeDescifrado = await crypto.subtle.decrypt(algoritmo, claveCrypto, mensajeCifrado)
+
+    const decoder = new TextDecoder()
+    const mensajeOriginal = decoder.decode(mensajeDescifrado)
+
+    return mensajeOriginal
+}
 //LOCALSTORAGE
 const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
+localStorage.setItem("avl_estudiantes", JSON.stringify(arbolE));
 var log = localStorage.getItem("login");
 const user = localStorage.getItem("user");
 
@@ -511,79 +433,28 @@ function recorridoInorder(raiz){
     }
     return cadena;
 }
-function recorridoInorderHash(raiz){
+function recorridoInorderHash(raiz, tabla){
     cadena = ""
     if(raiz !== null){
         if(raiz.izquierdo !== null){
-            recorridoInorderHash(raiz.izquierdo);          
+            recorridoInorderHash(raiz.izquierdo,tabla);          
         }
-        // convertir archivos a grafo        
-        var grafoarch = null
-        if(raiz.archivos != null){            
-            grafoarch =  new grafoDirigido()            
-            convertirgrafo(raiz.archivos.raiz.valor,raiz.archivos.raiz.primero, grafoarch)     
-            convertirmatrices(raiz.archivos.raiz, grafoarch)
-        }
-        //encriptar password
-        convertirpass(raiz.estudiante, grafoarch)
+        let alum = raiz.estudiante;
+        tabla.insertar(alum.carnet,alum.nombre,alum.password)
         if(raiz.derecho !== null){
-            recorridoInorderHash(raiz.derecho);
+            recorridoInorderHash(raiz.derecho,tabla);
         }
     }
 }
-function convertirgrafo(raizval, primero ,grafo){    
-    while(primero != null){        
-        grafo.insertarValores(raizval,primero.valor)
-        if(primero.valor.indexOf(".") == -1){
-            if(raizval != "/"){
-                var rutacom = raizval + "/" +primero.valor
-            }            
-            else{
-                var rutacom = raizval + primero.valor
-            }
-            
-            if(primero.primero != null){
-                convertirgrafo(rutacom, primero.primero,grafo)
-            }
-        }
-        primero = primero.siguiente
-    }
+async function encripContra(tabla, contra){
+    let contraencrip = await encriptacion(contra)
+    tabla.password = contraencrip
 }
-function convertirmatrices(raiz, grafo){
-    if(raiz.matrizpermisos != null){
-        grafo.principal.matrizpermisos = raiz.matrizpermisos
-    }
-    let auxPadre = grafo.principal
-    let auxHijo = grafo.principal
-    while(auxPadre){
-        auxHijo = auxPadre.siguiente
-        while(auxHijo){
-            if(auxHijo.valor.indexOf(".") == -1){
-                buscarpermisos(raiz.primero, auxHijo)
-            }
-            auxHijo = auxHijo.siguiente
-
-        }
-        auxPadre = auxPadre.abajo
-    }
+async function desencripcontra(tabla,contra){
+    let contrades = await desencriptacion(contra)
+    tabla.password = contrades
 }
-function buscarpermisos(primero, auxHijo){
-    while(primero != null){  
-        if(primero.valor == auxHijo.valor){
-            auxHijo.matrizpermisos = primero.matrizpermisos
-            break
-        }          
-        if(primero.primero != null){
-            buscarpermisos(primero.primero, auxHijo)
-        }
-        primero = primero.siguiente
-    }
-}
-async function convertirpass(estud,grafoarchivos){
-    let pass_en = await tablaHash.sha256(estud.password)
-    tablaHash.insertar(estud.carnet, estud.nombre, pass_en, grafoarchivos)    
-}
-
+      
 var Narbol = new ArbolAVL();
 Narbol.raiz = arbolE.raiz;
 
@@ -600,19 +471,36 @@ if(Narbol.raiz != null){
 }
 function hash(){
     if(arbolE.raiz != null){  
-        recorridoInorderHash(Narbol.raiz)
+        recorridoInorderHash(Narbol.raiz, tablaHash)
+        for(var i = 0; i < tablaHash.capacidad; i++){
+            if(tablaHash.tabla[i] != null){
+                let contra = tablaHash.tabla[i].password
+                encripContra(tablaHash.tabla[i],contra)
+            }
+        }
     }
     else{
         alert("no tiene nada")
     }
 }
-
+function desencrip(){
+    if(tablaHash.utilizacion > 0){
+        for(var i = 0; i < tablaHash.capacidad; i++){
+            if(tablaHash.tabla[i] != null){
+                let contra = tablaHash.tabla[i].password
+                desencripcontra(tablaHash.tabla[i],contra)
+            }
+        }
+    }
+}
 function tabla(){
     localStorage.setItem("tabla_estudiantes", JSON.stringify(tablaHash));
     tablaHash.genera_tabla()
-    tpermisos()
+    desencrip()
 }
-/*
+function local(){
+    localStorage.setItem("tabla_estudiantes", JSON.stringify(tablaHash));
+}
 function recorridoInorderPermisos(raiz){
     var cadena = "";
     if(raiz !== null){
@@ -660,58 +548,8 @@ function recorridoInorderPermisos(raiz){
         }
     }
     return cadena;
-}*/
-function mostrarpermisos(tablaHash){
-    var tabla = tablaHash.tabla
-    var cadena = ""
-    for(var i = 0; i < tablaHash.capacidad; i++){
-        if(tabla[i] != null){
-            grafo = tabla[i].grafoarchivos
-            var rutaarch="/"
-            if(grafo != null){
-                if(grafo.principal.matrizpermisos != null){
-                    var permiso = grafo.principal.matrizpermisos.principal
-                    let temppermiso = permiso.abajo
-                    while(temppermiso != null){
-                        var tempcolumna = temppermiso.siguiente
-                        while(tempcolumna != null){                          
-                            cadena += "<tr><td>" + tabla[i].carnet + "</td><td>" + tempcolumna.arriba + "</td><td>" + permiso.posicion + "</td><td>" + temppermiso.posicion + "</td><td>" + tempcolumna.posicion + "</td></tr>\n";                                
-                            tempcolumna = tempcolumna.siguiente
-                        }
-                        temppermiso = temppermiso.abajo
-                    }
-                }
-                
-                let auxPadre = grafo.principal
-                let auxHijo = grafo.principal
-                while(auxPadre){
-                    auxHijo = auxPadre.siguiente
-                    while(auxHijo){
-                        if(auxHijo.valor.indexOf(".") == -1){
-                            if(auxHijo.matrizpermisos != null){
-                                var permiso = auxHijo.matrizpermisos.principal
-                                let temppermiso = permiso.abajo
-                                while(temppermiso != null){
-                                    var tempcolumna = temppermiso.siguiente
-                                    while(tempcolumna != null){                          
-                                        cadena += "<tr><td>" + tabla[i].carnet + "</td><td>" + tempcolumna.arriba + "</td><td>" + permiso.posicion + "</td><td>" + temppermiso.posicion + "</td><td>" + tempcolumna.posicion + "</td></tr>\n";                                
-                                        tempcolumna = tempcolumna.siguiente
-                                    }
-                                    temppermiso = temppermiso.abajo
-                                }
-                            }
-                        }
-                        auxHijo = auxHijo.siguiente
-            
-                    }
-                    auxPadre = auxPadre.abajo
-                }
-            }
-        }
-    }
-    return cadena
 }
 function tpermisos(){
-    let datos = mostrarpermisos(tablaHash);
+    let datos = recorridoInorderPermisos(Narbol.raiz);
     document.getElementById("permisost").innerHTML = datos;
 }

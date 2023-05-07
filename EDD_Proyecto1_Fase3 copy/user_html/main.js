@@ -754,20 +754,8 @@ class Matriz{
             return "null";
         }
         else{
-            strjson += "{";
-            if(principal.arriba != null ){
-                strjson += "\"arriba\": \"" + principal.arriba.posicion + "\",";
-            }
-            else{
-                strjson += "\"arriba\": null ,";
-            }
-            if(principal.anterior != null){
-                strjson += "\"anterior\":\"" + principal.anterior.posicion + "\","
-            }
-            else{
-                strjson += "\"anterior\": null ,"
-            }
-            strjson += "\"siguiente\": " + this.reporteJson(principal.siguiente) + ",";
+            strjson += "{"
+            strjson += "\"siguiente\":" + this.reporteJson(principal.siguiente) + ",";
             strjson += "\"abajo\":" + this.reporteJson(principal.abajo) + ",";
             strjson += "\"posX\":" + principal.posX + ",";
             strjson += "\"posY\":" + principal.posY + ",";
@@ -863,7 +851,7 @@ function permisos(id){
                 var ruta = document.getElementById("rutatx").value;
                 let lista_carpeta = ruta.split('/')
                 let existe_carpeta = arbol_archivos.BuscarCarpetaV2(lista_carpeta)                
-                var matriz_permisos = new Matriz(ruta);
+                var matriz_permisos = new Matriz(existe_carpeta.valor);
                 if(existe_carpeta.matrizpermisos != null){
                     matriz_permisos.principal = existe_carpeta.matrizpermisos.principal
                     matriz_permisos.coordenadaX = existe_carpeta.matrizpermisos.coordenadaX

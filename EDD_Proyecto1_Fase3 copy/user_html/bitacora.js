@@ -16,6 +16,7 @@ class nodoArbol {
         this.estudiante = estudiante;
         this.altura = 1;
         this.factor_equilibrio = 0;
+        this.permisos = null;
         this.archivos = null;
         this.bitacora = null;
     }
@@ -168,7 +169,6 @@ class nodonArbol{
         this.valor = valor;
         this.primero = null;
         this.id = id;
-        this.matrizpermisos = null
     }
 }
 
@@ -532,8 +532,8 @@ class nodoMatriz{
 }
 
 class Matriz{
-    constructor(title){
-        this.principal = new nodoMatriz(-1,-1,title)
+    constructor(){
+        this.principal = new nodoMatriz(-1,-1,"Raiz")
         this.coordenadaY = 0;
         this.coordenadaX = 0;
     }
@@ -674,7 +674,7 @@ class Matriz{
         }else if(nuevaFila !== null && nuevaColumna !== null){/* Fila si existe, Columna si existe */
             this.insertarNodo(x,y,texto);
         }else{
-            console.log("");
+            console.log("Me dio Ansiedad :(");
         }
     }
 
@@ -754,20 +754,8 @@ class Matriz{
             return "null";
         }
         else{
-            strjson += "{";
-            if(principal.arriba != null ){
-                strjson += "\"arriba\": \"" + principal.arriba.posicion + "\",";
-            }
-            else{
-                strjson += "\"arriba\": null ,";
-            }
-            if(principal.anterior != null){
-                strjson += "\"anterior\":\"" + principal.anterior.posicion + "\","
-            }
-            else{
-                strjson += "\"anterior\": null ,"
-            }
-            strjson += "\"siguiente\": " + this.reporteJson(principal.siguiente) + ",";
+            strjson += "{"
+            strjson += "\"siguiente\":" + this.reporteJson(principal.siguiente) + ",";
             strjson += "\"abajo\":" + this.reporteJson(principal.abajo) + ",";
             strjson += "\"posX\":" + principal.posX + ",";
             strjson += "\"posY\":" + principal.posY + ",";
@@ -859,37 +847,22 @@ function permisos(id){
         try{
             var carnetV = buscar_carne(AvlArbol.raiz, parseInt(carnet));
             if(carnetV){
-                //OBTENER NODO DEE CARPETA
-                var ruta = document.getElementById("rutatx").value;
-                let lista_carpeta = ruta.split('/')
-                let existe_carpeta = arbol_archivos.BuscarCarpetaV2(lista_carpeta)                
-                var matriz_permisos = new Matriz(ruta);
-                if(existe_carpeta.matrizpermisos != null){
-                    matriz_permisos.principal = existe_carpeta.matrizpermisos.principal
-                    matriz_permisos.coordenadaX = existe_carpeta.matrizpermisos.coordenadaX
-                    matriz_permisos.coordenadaY = existe_carpeta.matrizpermisos.coordenadaY
-                    //-------
-                    matriz_permisos.insertarArchivo(id)
-                    matriz_permisos.colocarPermiso(id,carnet,tipo.toUpperCase())
-                    existe_carpeta.matrizpermisos = matriz_permisos
-                }else{
-                    matriz_permisos.insertarArchivo(id)
-                    matriz_permisos.colocarPermiso(id,carnet,tipo.toUpperCase())
-                    existe_carpeta.matrizpermisos = matriz_permisos
-                }
-                
+                matriz_permisos.insertarArchivo(id)
+                matriz_permisos.colocarPermiso(id,carnet,tipo.toUpperCase())
                 var fecha = String(new Date().toLocaleString().replace(",","").replace(/:.. /," "))
-                var accion = "Se colocó permisos "+ tipo.toUpperCase() +" al archivo \'" + String(id) + "\' para el carnet: " + carnet + " el "+ fecha;
+                var accion = "Se colocó permisos "+ tipo.toUpperCase() +" al archivo \"" + String(id) + "\" para el carnet: " + carnet + " el "+ fecha;
                 bitacora.agregar_inicio(accion);
                 alert(accion)
+                //let url = 'https://quickchart.io/graphviz?graph=';
+                //let body = matriz_permisos.reporte();
+                //alert(url + body)
                 let md = "{\"principal\":" + matriz_permisos.reporteJson(matriz_permisos.principal) + ","
                 md += "\"coordenadaY\":" + matriz_permisos.coordenadaY + ",";
                 md+= "\"coordenadaX\":"+ matriz_permisos.coordenadaX + "}" ;
                 let md2 = "{ \"primero\":" + bitacora.reporteJson(bitacora.primero) + ","
                 md2 += "\"ultimo\":" + bitacora.reporteJson(bitacora.ultimo) + "}";
                 nodoEstudiante.bitacora = JSON.parse(md2);
-                existe_carpeta.matrizpermisos = JSON.parse(md);
-                nodoEstudiante.archivos = arbol_archivos;
+                nodoEstudiante.permisos = JSON.parse(md);
                 localStorage.setItem("avl_estudiantes", JSON.stringify(AvlArbol));
             }
             else{
@@ -905,81 +878,7 @@ function permisos(id){
     }
 
 }
-//FUNCION PARA ELEMINAR CARPETA O ARCHIVO
-function eliminar(id){
-    toperaciones++;
-    document.getElementById("operacionesn").innerHTML = String(toperaciones);
-    if(id.indexOf(".") == -1){
-        tcarpetas--;
-        document.getElementById("carpetasn").innerHTML = String(tcarpetas);
-    }
-    var ruta = document.getElementById("rutatx").value;
-    let lista_carpeta = ruta.split('/')
-    let existe_carpeta = arbol_archivos.BuscarCarpetaV2(lista_carpeta)
-    try{
-        if(existe_carpeta !== null){  
-            let aux = existe_carpeta.primero
-            if(aux.valor == id){
-                existe_carpeta.primero = aux.siguiente;
-            }
-            else{
-                while(aux){
-                    if(aux.siguiente.valor == id && aux.siguiente.siguiente === null){
-                        aux.siguiente = null;
-                        break;
-                    }
-                    else if(aux.siguiente.valor == id){
-                        aux.siguiente = aux.siguiente.siguiente;
-                        break;
-                    }
-                    aux = aux.siguiente
-                }
-            }          
-        }
-        //Bitacora
-        var fecha = String(new Date().toLocaleString().replace(",","").replace(/:.. /," "))
-        var accion = "Se eliminó carpeta \'" + String(id) + "\' el " + fecha;
-        bitacora.agregar_inicio(accion);
-        alert(accion)
-        let md2 = "{ \"primero\":" + bitacora.reporteJson(bitacora.primero) + ","
-        md2 += "\"ultimo\":" + bitacora.reporteJson(bitacora.ultimo) + "}";
-        nodoEstudiante.bitacora = JSON.parse(md2);
-        //
-        nodoEstudiante.archivos = arbol_archivos;
-        var tablaCarp = arbol_archivos.mostrarCarpetasActuales(ruta);
-        document.getElementById("archivo").innerHTML = tablaCarp;
-        localStorage.setItem("avl_estudiantes", JSON.stringify(AvlArbol));
 
-    }catch(error){
-    }
-}
-//FUNCION PARA CREAR CARPETA
-function crearC(){
-    toperaciones++;
-    document.getElementById("operacionesn").innerHTML = String(toperaciones);
-    var tx = document.getElementById("nuevaC").value;
-    if(tx != ""){
-        if(tx.indexOf(".") == -1){
-            tcarpetas++;
-            document.getElementById("carpetasn").innerHTML = String(tcarpetas);
-        }
-        //Bitacora
-        var fecha = String(new Date().toLocaleString().replace(",","").replace(/:.. /," "))
-        var accion = "Se creó carpeta \'" + String(tx) + "\' el " + fecha;
-        bitacora.agregar_inicio(accion);
-        alert(accion)
-        let md2 = "{ \"primero\":" + bitacora.reporteJson(bitacora.primero) + ","
-        md2 += "\"ultimo\":" + bitacora.reporteJson(bitacora.ultimo) + "}";
-        nodoEstudiante.bitacora = JSON.parse(md2);
-        //Insertar valores
-        var ruta = document.getElementById("rutatx").value;
-        arbol_archivos.insertarValor(String(ruta),String(tx));        
-        nodoEstudiante.archivos = arbol_archivos;
-        var tablaCarp = arbol_archivos.mostrarCarpetasActuales(ruta);
-        document.getElementById("archivo").innerHTML = tablaCarp;
-    }
-}
-//LOCALSTORAGE
 var tcarpetas = 0;
 var toperaciones = 0;
 const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
@@ -993,7 +892,7 @@ localStorage.setItem("user",user);
 //NODO ESTUDIANTE
 var nodoEstudiante = buscar_carne(AvlArbol.raiz, JSON.parse(user).carnet);
 var arbol_archivos = new ArbolNArio();
-//igualar matriz inicial
+var matriz_permisos = new Matriz();
 var bitacora = new ListaCircular();
 if(nodoEstudiante.archivos == null){
     nodoEstudiante.archivos = arbol_archivos;
@@ -1003,6 +902,14 @@ else{
     arbol_archivos.nodo_creados = nodoEstudiante.archivos.nodo_creados;
 }
 
+if(nodoEstudiante.permisos == null){
+    nodoEstudiante.permisos = matriz_permisos;
+}
+else{
+    matriz_permisos.principal = nodoEstudiante.permisos.principal
+    matriz_permisos.coordenadaX = nodoEstudiante.permisos.coordenadaX
+    matriz_permisos.coordenadaY = nodoEstudiante.permisos.coordenadaY
+}
 
 if(nodoEstudiante.bitacora == null){
     nodoEstudiante.bitacora = bitacora;
@@ -1012,14 +919,33 @@ else{
     bitacora.ultimo = nodoEstudiante.bitacora.ultimo;
 }
 
+if(bitacora.primero != null){
+    var body = "digraph Listadoble{rankdir=LR;node[shape=box];";
+    let aux = bitacora.primero;
+    let cont = 0;
+    while(aux){
+        body += "x" + cont++ + "[dir=both label=\"" + String(aux.accion) + "\"];";
+        aux = aux.siguiente;
+    }
+    for (let index = 0; index < cont; index++) {
+        if(index === (cont - 1)){
+            body += "x" + index + "-> x" + 0 + ";";
+        }
+        else{
+            body += "x" + index + " -> x" + (index + 1) + ";"
+        }
+    }
+    body += "}"
+    console.log(body)
+    let url = 'https://quickchart.io/graphviz?graph=';
+    document.getElementById("image").setAttribute("src",url+body);
+}
+
 var nombre = user;
 var carnet = ""
 if(user != "admin"){
     var estudiante = JSON.parse(user);
     nombre = estudiante.nombre;
-    if(nombre == undefined){
-        nombre = estudiante.usuario
-    }
     carnet = estudiante.carnet;    
 }
 logt();
@@ -1040,9 +966,6 @@ function logt(){
     }
 }
 
-//seleccionar de archivos
-document.getElementById("carne").innerHTML = carnet;
-document.getElementById("nombre").innerHTML = nombre
 //DEVUELVE EL NODO RAIZ
 function buscar_carne(raiz, carnet){
     if(raiz === null){
@@ -1060,108 +983,4 @@ function buscar_carne(raiz, carnet){
     else{
         return false;
     }
-}
-//SELECCIONADOR DE ARCHIVOS-----------------------------------
-const dropArea = document.querySelector(".main").querySelector(".details").querySelector(".recentAlumnos").querySelector(".drag-area");
-const dragText = dropArea.querySelector("h2");
-const button = dropArea.querySelector("button");
-const input = dropArea.querySelector("#input-file");
-const cajatext = document.querySelector(".main").querySelector(".details").querySelector(".recentOp").querySelector(".cardHeader").querySelector(".search").querySelector("input");
-/*
-IMAGEN: <ion-icon name="image-outline"></ion-icon>
-PDF: <ion-icon name="document-outline"></ion-icon>
-TEXTO: <ion-icon name="document-text-outline"></ion-icon>
-CARPETA: <ion-icon name="folder-outline"></ion-icon>
-*/
-cajatext.addEventListener("keyup", (e) =>{
-    var texto = cajatext.value;
-    var tablaCarp = arbol_archivos.mostrarCarpetasActuales(texto);
-    document.getElementById("archivo").innerHTML = tablaCarp;
-    
-});
-
-
-button.addEventListener('click', e =>{
-    input.click();
-});
-input.addEventListener("change", (e) => {
-    files = input.files;
-    dropArea.classList.add("active");
-    showFiles(files)
-    dropArea.classList.remove("active");
-});
-
-dropArea.addEventListener("dragover", (e) =>{
-    e.preventDefault();
-    dropArea.classList.add("active");
-    dragText.textContent = "Suelta para subir los archivos";
-});
-dropArea.addEventListener("dragleave", (e) =>{
-    e.preventDefault();
-    dropArea.classList.remove("active");
-    dragText.textContent = "Arrastra y suelta imagenes";
-    
-});
-dropArea.addEventListener("drop", (e) =>{
-    e.preventDefault();
-    files = e.dataTransfer.files;
-    showFiles(files)
-    dropArea.classList.remove("active");
-    dragText.textContent = "Arrastra y suelta imagenes";
-});
-
-function showFiles(files){
-    if(files.length === undefined){
-        processFile(files);
-    }else{
-        for(const file of files){
-            processFile(file);
-        }
-    }
-}
-function processFile(file){
-    const docType = file.type;
-    const validExtensions = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif','application/pdf','text/plain'];
-    if(validExtensions.includes(docType)){
-        //archivo valido        
-    toperaciones++;
-    document.getElementById("operacionesn").innerHTML = String(toperaciones);
-        const fileReader = new FileReader();
-        fileReader.addEventListener('load', e =>{
-            var ruta = document.getElementById("rutatx").value;
-            arbol_archivos.insertarValor(String(ruta),String(file.name));
-            //Bitacora
-            var fecha = String(new Date().toLocaleString().replace(",","").replace(/:.. /," "))
-            var accion = "Se subió archivo \'" + String(file.name) + "\' el " + fecha;
-            bitacora.agregar_inicio(accion);
-            alert(accion)
-            let md2 = "{ \"primero\":" + bitacora.reporteJson(bitacora.primero) + ","
-            md2 += "\"ultimo\":" + bitacora.reporteJson(bitacora.ultimo) + "}";            
-            nodoEstudiante.bitacora = JSON.parse(md2);
-            nodoEstudiante.archivos = arbol_archivos;
-            //BASE 64
-            //fileReader.onload = onReaderLoad
-            var tablaCarp = arbol_archivos.mostrarCarpetasActuales(ruta);
-            document.getElementById("archivo").innerHTML = tablaCarp;
-        });
-        fileReader.readAsDataURL(file);
-    }else{
-        //no es un archivo valido
-        alert("No es un archivo valido.");
-    }
-}
-
-function permisosrep(){
-    var ruta = document.getElementById("rutatx").value;
-    let lista_carpeta = ruta.split('/')
-    let existe_carpeta = arbol_archivos.BuscarCarpetaV2(lista_carpeta)
-    var matriz_permisos = new Matriz(existe_carpeta.valor);
-    matriz_permisos.principal = existe_carpeta.matrizpermisos.principal
-    matriz_permisos.coordenadaX = existe_carpeta.matrizpermisos.coordenadaX
-    matriz_permisos.coordenadaY = existe_carpeta.matrizpermisos.coordenadaY
-
-    let url = 'https://quickchart.io/graphviz?graph=';
-    let body = matriz_permisos.reporte();
-    let loca = url + body
-    window.open(loca, '_blank');
 }

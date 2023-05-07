@@ -169,9 +169,9 @@ toggle.onclick = function(){
     main.classList.toggle("active");
 }
 
-//const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
+const arbolE = JSON.parse(localStorage.getItem("avl_estudiantes"));
 var Narbol = new ArbolAVL();
-//Narbol.raiz = arbolE.raiz;
+Narbol.raiz = arbolE.raiz;
 //localStorage.setItem("avl_estudiantes", JSON.stringify(arbolE));
 
 const dropArea = document.querySelector(".main").querySelector(".datos").querySelector(".tabla_alum").querySelector(".drag-area");
